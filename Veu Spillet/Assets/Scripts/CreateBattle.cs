@@ -11,14 +11,14 @@ public class CreateBattle : MonoBehaviour {
 	public void setUser(User newUser){
 		selectedUser = newUser;
 		if (selectedCategory.id > 0) {
-			Debug.Log ("Move to next stage");
+			Toolbox.FindRequiredComponent<EventSystem> ().OnPickedAQuizFormat (selectedCategory, selectedUser);
 		}
 	}
 
 	public void setCategory(Category newCategory){
 		selectedCategory = newCategory;
 		if (selectedUser.userID > 0) {
-			Debug.Log ("Move to next stage");
+			Toolbox.FindRequiredComponent<EventSystem> ().OnPickedAQuizFormat (selectedCategory, selectedUser);
 		}
 	}
 }

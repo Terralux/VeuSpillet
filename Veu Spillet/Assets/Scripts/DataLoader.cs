@@ -5,9 +5,11 @@ using UnityEngine;
 public static class DataLoader {
 
 	public static IEnumerator LoadCategories(DataReceiver dr){
+		Debug.Log ("Began loading data");
 		WWW www = new WWW("http://veuspillet.dk/demo/loadCat.php");
 		yield return www;
 
+		Debug.Log ("Finished loading data");
 		string[] categoryDataStrings = www.text.Split ('|');
 		Category[] categories = new Category[categoryDataStrings.Length];
 
