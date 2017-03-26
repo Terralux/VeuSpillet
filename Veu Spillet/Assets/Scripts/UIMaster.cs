@@ -19,7 +19,7 @@ public class UIMaster : DataReceiver {
 
 		Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedQuizMenu += OnSelectedQuizMenu;
 		Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedResultsMenu += OnSelectedResultsMenu;
-		StartCoroutine (DataLoader.LoadQuizzesFromCategory (this, 1));
+		StartCoroutine (DataLoader.LoadUsers (this));
 	}
 
 	public void OnLoggedIn(){
