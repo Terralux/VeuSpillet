@@ -10,6 +10,12 @@ public class UIMaster : DataReceiver {
 	public GameObject loginFailed;
 	public GameObject mainMenu;
 
+	public GameObject CategoryButtonPrefab;
+	public GameObject UserButtonPrefab;
+	public Transform SoloQuizPanelCategories;
+	public Transform ChallangeQuizPanelCategories;
+	public Transform ChallangeQuizPanelUsers;
+
 	public GameObject quizMenu;
 	public GameObject resultsMenu;
 
@@ -20,10 +26,6 @@ public class UIMaster : DataReceiver {
 		Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedQuizMenu += OnSelectedQuizMenu;
 		Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedResultsMenu += OnSelectedResultsMenu;
 		Toolbox.FindRequiredComponent<EventSystem> ().OnPickedAQuizFormat += OnPickedAQuizFormat;
-
-		int [] myArray = new int[30];
-		myArray [3] = 2;
-		StartCoroutine (DataSaver.SaveQuizBattleResult (new QuizBattleResult (myArray, myArray, 1, 2)));
 	}
 
 	public void OnLoggedIn(){
@@ -69,4 +71,33 @@ public class UIMaster : DataReceiver {
 		Debug.Log ("Callback Successful!");
 	}
 	#endregion
+
+	void fillButtonDataCategories(Category[] categories){
+
+		foreach (Category c in categories) {
+			GameObject newCategoryButton = Instantiate (CategoryButtonPrefab) as GameObject;
+			newCategoryButton.transform.SetParent (SoloQuizPanelCategories);
+			newCategoryButton.GetComponentInChildren<Text> ().text = c.name;
+			newCategoryButton.GetComponent<CategoryContainer> ().myCategory = c;
+		} 
+
+		foreach (Category c in categories) {
+			GameObject newCategoryButton = Instantiate (CategoryButtonPrefab) as GameObject;
+			newCategoryButton.transform.SetParent (ChallangeQuizPanelCategories);
+			newCategoryButton.GetComponentInChildren<Text> ().text = c.name;
+			newCategoryButton.GetComponent<CategoryContainer> ().myCategory = c;
+		} 
+
+	}
+
+	void fillButtonDataUsers(User[] users){
+
+		foreach (User u in users) {
+			GameObject newUserButton = Instantiate (UserButtonPrefab) as GameObject;
+			newUserButton.transform.SetParent (ChallangeQuizPanelUsers);
+			newUserButton.GetComponentInChildren<Text> ().text = u.userName;
+			newUserButton.GetComponent<UserContainer> ().myUser = u;
+		}
+
+	}
 }
