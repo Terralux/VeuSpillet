@@ -31,13 +31,15 @@ public struct Battle{
 
 public struct Question{
 	public int questionID;
+	public string question;
 	public string correctAnswer;
 	public string wrongAnswer1;
 	public string wrongAnswer2;
 	public string wrongAnswer3;
 
-	public Question(int questionID, string correctAnswer, string wrongAnswer1, string wrongAnswer2, string wrongAnswer3){
+	public Question(int questionID, string question, string correctAnswer, string wrongAnswer1, string wrongAnswer2, string wrongAnswer3){
 		this.questionID = questionID;
+		this.question = question;
 		this.correctAnswer = correctAnswer;
 		this.wrongAnswer1 = wrongAnswer1;
 		this.wrongAnswer2 = wrongAnswer2;
@@ -47,11 +49,15 @@ public struct Question{
 
 public struct User{
 	public int userID;
+	public int teamID;
 	public string userName;
+	public string userPassword;
 
-	public User(int userID, string userName){
+	public User(int userID, int teamID, string userName, string userPassword){
 		this.userID = userID;
+		this.teamID = teamID;
 		this.userName = userName;
+		this.userPassword = userPassword;
 	}
 }
 
