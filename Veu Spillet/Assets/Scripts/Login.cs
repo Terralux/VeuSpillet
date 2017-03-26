@@ -5,13 +5,13 @@ using System.Collections;
 
 public class Login : MonoBehaviour {
 
-	public GameObject bruger;
-	public GameObject password;
+	public InputField bruger;
+	public InputField password;
 
-	string[] ds;
-	string[] uid;
-	string[] name;
-	string[] pass;
+	string[] users;
+	string[] userIDs;
+	string[] userNames;
+	string[] userPassword;
 	string user;
 
 	// Use this for initialization
@@ -21,49 +21,49 @@ public class Login : MonoBehaviour {
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
 		string dataString = ItemsData.text;
-		ds = dataString.Split('#');
+		users = dataString.Split('#');
 
-		string[] dl;
-		uid = new string[ds.Length-1];
-		name = new string[ds.Length-1];
-		pass = new string[ds.Length-1];
-		for (int i = 0; i < ds.Length-1; i++) {
-			dl = ds [i].Split (',');
+		string[] segmentedUserData;
+		userIDs = new string[users.Length-1];
+		userNames = new string[users.Length-1];
+		userPassword = new string[users.Length-1];
+		for (int i = 0; i < users.Length-1; i++) {
+			segmentedUserData = users [i].Split (',');
 
-			uid [i] = dl [0];
-			name [i] = dl [2];
-			pass [i] = dl [3];
+			userIDs [i] = segmentedUserData [0];
+			userNames [i] = segmentedUserData [2];
+			userPassword [i] = segmentedUserData [3];
 
-			print(""+uid[i]+" "+name [i]+" "+pass [i]);
+			print("" + userIDs[i] + " " + userNames [i] + " " + userPassword [i]);
 
 		}
 
 		yield return new WaitForSeconds (0);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void InitiateLogin(){
+		StartCoroutine (Verify ());
 	}
 
-	public void verify(){
-		StartCoroutine (verify2 ());
-	}
-
-	IEnumerator verify2(){
+	IEnumerator Verify(){
 		int i = 0;
 		bool userFound = false;
-		print ("ul:" + uid.Length);
-		while (!userFound && i < uid.Length) {
-			if (name [i] == bruger.GetComponent<Text> ().text && pass [i] == password.GetComponent<Text> ().text) {
+
+		print ("Collective User IDs: " + userIDs.Length);
+
+		while (!userFound && i < userIDs.Length) {
+			if (userNames [i] == bruger.text && userPassword [i] == password.text) {
 				userFound = true;	
-				user = uid [i];
-				print ("" + user);
+				user = userIDs [i];
 			}
+			i++;
 		}
+
 		if (userFound) {
-			
-			WWWForm form = new WWWForm();
+			Debug.Log ("Logged in as: " + user);
+			Toolbox.FindRequiredComponent<EventSystem> ().OnLoggedIn ();
+
+			/*WWWForm form = new WWWForm();
 
 			form.AddField("user", user);
 			WWW www = new WWW("http://veuspillet.dk/set_u.php", form);
@@ -72,6 +72,12 @@ public class Login : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 
 			Application.OpenURL ("http://veuspillet.dk/veuMenu/");
+			*/
+		}else{
+			Debug.LogWarning ("No user found!");
+			Toolbox.FindRequiredComponent<EventSystem> ().OnFailedLogin ();
 		}
+
+		yield return new WaitForSeconds (0.5f);
 	}
 }
