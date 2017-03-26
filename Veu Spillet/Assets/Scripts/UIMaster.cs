@@ -19,7 +19,10 @@ public class UIMaster : DataReceiver {
 
 		Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedQuizMenu += OnSelectedQuizMenu;
 		Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedResultsMenu += OnSelectedResultsMenu;
-		StartCoroutine (DataLoader.LoadUsers (this));
+
+		int [] myArray = new int[30];
+		myArray [3] = 2;
+		StartCoroutine (DataSaver.SaveQuizBattleResult (new QuizBattleResult (myArray, myArray, 1, 2)));
 	}
 
 	public void OnLoggedIn(){
