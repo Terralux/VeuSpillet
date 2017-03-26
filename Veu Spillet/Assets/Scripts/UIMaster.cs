@@ -19,6 +19,7 @@ public class UIMaster : DataReceiver {
 
 		Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedQuizMenu += OnSelectedQuizMenu;
 		Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedResultsMenu += OnSelectedResultsMenu;
+		Toolbox.FindRequiredComponent<EventSystem> ().OnPickedAQuizFormat += OnPickedAQuizFormat;
 
 		int [] myArray = new int[30];
 		myArray [3] = 2;
@@ -40,6 +41,10 @@ public class UIMaster : DataReceiver {
 
 	public void OnSelectedResultsMenu(){
 		resultsMenu.SetActive (true);
+	}
+
+	public void OnPickedAQuizFormat(){
+		
 	}
 
 	#region implemented abstract members of DataReceiver

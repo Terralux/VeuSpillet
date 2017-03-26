@@ -11,4 +11,5 @@ public class EventSystem : MonoBehaviour {
 	public VoidEvent OnLoggedOut;
 	public VoidEvent OnSelectedQuizMenu;
 	public VoidEvent OnSelectedResultsMenu;
+	public VoidEvent OnPickedAQuizFormat;
 }
