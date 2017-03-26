@@ -84,3 +84,39 @@ public struct Quiz{
 		this.level = level;
 	}
 }
+
+public struct QuizResult{
+	public int[] questionIDs;
+	public int[] questionAnswers;
+	public int userID;
+
+	public QuizResult(int[] questionIDs, int[] questionAnswers, int userID){
+		this.questionIDs = questionIDs;
+		this.questionAnswers = questionAnswers;
+		this.userID = userID;
+	}
+}
+
+public struct QuizBattleResult{
+	public int[] questionIDs;
+	public int[] questionAnswersChallenger;
+	public int[] questionAnswersDefender;
+	public int challengerID;
+	public int defenderID;
+
+	public QuizBattleResult(int[] questionIDs, int[] questionAnswersChallenger, int challengerID, int defenderID){
+		this.questionIDs = questionIDs;
+		this.questionAnswersChallenger = questionAnswersChallenger;
+		this.questionAnswersDefender = new int[30];
+		this.challengerID = challengerID;
+		this.defenderID = defenderID;
+	}
+
+	public QuizBattleResult(int[] questionIDs, int[] questionAnswersChallenger, int[] questionAnswersDefender, int challengerID, int defenderID){
+		this.questionIDs = questionIDs;
+		this.questionAnswersChallenger = questionAnswersChallenger;
+		this.questionAnswersDefender = questionAnswersDefender;
+		this.challengerID = challengerID;
+		this.defenderID = defenderID;
+	}
+}

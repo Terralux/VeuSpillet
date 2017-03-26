@@ -17,11 +17,11 @@ public class Login : MonoBehaviour {
 	// Use this for initialization
 	IEnumerator Start () {
 		
-		string URL = "http://veuspillet.dk/getuser.php";
+		string URL = "http://veuspillet.dk/getAllUsers.php";
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
 		string dataString = ItemsData.text;
-		users = dataString.Split('#');
+		users = dataString.Split('|');
 
 		string[] segmentedUserData;
 		userIDs = new string[users.Length-1];
