@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class DataContainer {
-	public static Category c;
-	public static User u;
-	public static Quiz q;
+	public static Category selectedCategory;
+	public static User opponentUser;
+	public static Quiz selectedQuiz;
+
+	public static User currentLoggedUser;
+
+	public static int currentBattleID;
+
+	public static Battle currentBattle;
 }

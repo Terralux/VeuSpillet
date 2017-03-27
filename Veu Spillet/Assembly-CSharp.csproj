@@ -46,10 +46,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ResultPostFiller.cs" />
      <Compile Include="Assets\Scripts\ActivateState.cs" />
+     <Compile Include="Assets\Scripts\BattleContainer.cs" />
+     <Compile Include="Assets\Scripts\CategoryContainer.cs" />
      <Compile Include="Assets\Scripts\Classifications.cs" />
+     <Compile Include="Assets\Scripts\CreateBattle.cs" />
+     <Compile Include="Assets\Scripts\DataContainer.cs" />
      <Compile Include="Assets\Scripts\DataLoader.cs" />
      <Compile Include="Assets\Scripts\DataReciever.cs" />
+     <Compile Include="Assets\Scripts\DataSaver.cs" />
      <Compile Include="Assets\Scripts\Enumerations\MenuStates.cs" />
      <Compile Include="Assets\Scripts\EventSystem.cs" />
      <Compile Include="Assets\Scripts\Extensions\ComponentExtensions.cs" />
@@ -57,10 +63,12 @@
      <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\LoadPage.cs" />
      <Compile Include="Assets\Scripts\Login.cs" />
+     <Compile Include="Assets\Scripts\QuizContainer.cs" />
      <Compile Include="Assets\Scripts\Toolbox\Singleton.cs" />
      <Compile Include="Assets\Scripts\Toolbox\Toolbox.cs" />
      <Compile Include="Assets\Scripts\Toolbox\ToolboxAutomaticUnregister.cs" />
      <Compile Include="Assets\Scripts\UIMaster.cs" />
+     <Compile Include="Assets\Scripts\UserContainer.cs" />
      <Compile Include="Assets\Scripts\generateLog.cs" />
      <Compile Include="Assets\Scripts\hover.cs" />
  <Reference Include="UnityEngine.UI">

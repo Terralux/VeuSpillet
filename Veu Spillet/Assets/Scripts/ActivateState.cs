@@ -19,4 +19,8 @@ public class ActivateState : MonoBehaviour {
 	public void ActivateResultsState(){
 		Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedResultsMenu ();
 	}
+
+	public void ActivateQuizBegin(){
+		Toolbox.FindRequiredComponent<EventSystem> ().OnBeganQuiz ();
+	}
 }

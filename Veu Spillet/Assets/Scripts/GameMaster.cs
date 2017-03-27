@@ -40,7 +40,7 @@ public class GameMaster : MonoBehaviour {
     Text[] answers;
 
 	string dataLog;
-	string dataLogURL = "veuspillet.dk/dataLog.php";
+	//string dataLogURL = "veuspillet.dk/dataLog.php";
 
 
 	IEnumerator Start () {
@@ -166,7 +166,7 @@ public class GameMaster : MonoBehaviour {
 		form.AddField("question", ""+questionNumber);
 		form.AddField("answer", ""+ans);
 		form.AddField("total", ""+totalScore);
-		WWW www = new WWW(dataLogURL, form);
+		//WWW www = new WWW(dataLogURL, form);
 		print ("Send " + Time.time);
 
 		yield return new WaitForSeconds (0);
