@@ -8,11 +8,11 @@ public class BattleContainer : MonoBehaviour {
 
 	public void OnClick(){
 		if (myBattle.challengerID == DataContainer.currentLoggedUser.userID) {
-			DataContainer.currentBattle = myBattle;
+			DataContainer.currentBattleID = myBattle.battleID;
 			DataContainer.selectedQuiz.quizID = myBattle.quizID;
 			Toolbox.FindRequiredComponent<EventSystem> ().OnBeganQuiz ();
 		} else {
-			DataContainer.currentBattle = myBattle;
+			DataContainer.currentBattleID = myBattle.battleID;
 			DataContainer.selectedQuiz.quizID = myBattle.quizID;
 			Toolbox.FindRequiredComponent<EventSystem> ().OnBeganQuiz ();
 		}

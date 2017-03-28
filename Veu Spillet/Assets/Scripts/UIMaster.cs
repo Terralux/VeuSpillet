@@ -187,7 +187,7 @@ public class UIMaster : DataReceiver {
 
 			if (DataContainer.currentBattleID != 0) {
 				if (DataContainer.currentBattle.challengerID == DataContainer.currentLoggedUser.userID) {
-					StartCoroutine (DataSaver.SaveQuizBattleResponse (questionsAnswers.ToArray (), true));
+					StartCoroutine (DataSaver.SaveBattle (new Battle (10, DataContainer.currentLoggedUser.userID, DataContainer.opponentUser.userID, DataContainer.selectedQuiz.quizID, 0)));
 				} else {
 					StartCoroutine (DataSaver.SaveQuizBattleResult (new QuizBattleResult (DataContainer.currentBattleID, 
 						questionIDs, questionsAnswers.ToArray (), DataContainer.currentLoggedUser.userID, DataContainer.opponentUser.userID)));
@@ -195,7 +195,6 @@ public class UIMaster : DataReceiver {
 			} else {
 				StartCoroutine (DataSaver.SaveQuizBattleResponse (questionsAnswers.ToArray (), false));
 			}
-			//StartCoroutine (DataSaver.SaveBattle (new Battle (10, DataContainer.currentLoggedUser.userID, DataContainer.opponentUser.userID, DataContainer.selectedQuiz.quizID, 0)));
 
 			Toolbox.FindRequiredComponent<EventSystem> ().OnSelectedResultsMenu ();
 		}
