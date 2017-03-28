@@ -15,8 +15,11 @@ public class Login : MonoBehaviour {
 	string user;
 
 	// Use this for initialization
-	IEnumerator Start () {
-		
+	void Start () {
+		StartCoroutine (Initiate ());
+	}
+
+	IEnumerator Initiate(){
 		string URL = "http://veuspillet.dk/getAllUsers.php";
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
