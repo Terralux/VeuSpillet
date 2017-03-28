@@ -101,6 +101,8 @@ public static class DataLoader {
 	public static IEnumerator LoadBattleResult(DataReceiver dr, int battleID){
 		WWW www;
 
+		Debug.Log ("my battle ID: " + battleID);
+
 		if (battleID != 0) {
 			www = new WWW ("http://veuspillet.dk/getQuizBattleResult.php/?bid=" + battleID);
 			yield return www;
@@ -110,6 +112,8 @@ public static class DataLoader {
 		}
 
 		QuizBattleResult battleResult;
+
+		Debug.Log (www.text);
 
 		string[] segmentedData = www.text.Split ('|');
 
