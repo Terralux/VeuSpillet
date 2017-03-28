@@ -16,6 +16,7 @@ public static class DataSaver {
 		yield return www;
 
 		Debug.Log (www.text);
+		DataContainer.currentBattleID = int.Parse (www.text);
 	}
 
 	public static IEnumerator SaveQuizResults(QuizResult quizResultsToSave){
@@ -53,20 +54,20 @@ public static class DataSaver {
 		string defenderAnswers = "";
 
 		for (int i = 0; i < quizBattleResultToSave.questionIDs.Length; i++) {
-			questionIDs += quizBattleResultToSave.questionIDs[i] + ",";
+			if (i == quizBattleResultToSave.questionIDs.Length - 1) {
+				questionIDs += quizBattleResultToSave.questionIDs [i];
 
-			if (quizBattleResultToSave.questionAnswersChallenger [i] != 0) {
+				challengerAnswers += quizBattleResultToSave.questionAnswersChallenger [i];
+				defenderAnswers += quizBattleResultToSave.questionAnswersDefender [i];
+			} else {
+				questionIDs += quizBattleResultToSave.questionIDs [i] + ",";
+
 				challengerAnswers += quizBattleResultToSave.questionAnswersChallenger [i] + ",";
-			} else {
-				challengerAnswers += ",";
-			}
-
-			if (quizBattleResultToSave.questionAnswersDefender [i] != 0) {
 				defenderAnswers += quizBattleResultToSave.questionAnswersDefender [i] + ",";
-			} else {
-				defenderAnswers += ",";
 			}
 		}
+
+		Debug.Log (challengerAnswers);
 
 		questionIDs += "|";
 		challengerAnswers += "|";
@@ -78,10 +79,40 @@ public static class DataSaver {
 		myForm.AddField ("defenderAnswers", defenderAnswers);
 		myForm.AddField ("challengerID", quizBattleResultToSave.challengerID);
 		myForm.AddField ("defenderID", quizBattleResultToSave.defenderID);
+		myForm.AddField ("battleID", quizBattleResultToSave.battleID);
 
 		WWW www = new WWW ("http://veuspillet.dk/saveQuizBattleResultData.php", myForm);
 		yield return www;
 
 		Debug.Log (www.text);
 	}
+
+	public static IEnumerator SaveQuizBattleResponse(int[] questionAnswers, bool isChallenger){
+		string answers = "";
+
+		for (int i = 0; i < questionAnswers.Length; i++) {
+			if (i == questionAnswers.Length - 1) {
+				answers += questionAnswers [i];
+			} else {
+				answers += questionAnswers [i] + ",";
+			}
+		}
+
+		answers += "|";
+
+		WWWForm myForm = new WWWForm();
+
+		myForm.AddField ("isChallenger", isChallenger ? 1 : 0);
+
+		if (isChallenger) {
+			myForm.AddField ("challengerAnswers", answers);
+		} else {
+			myForm.AddField ("defenderAnswers", answers);
+		}
+		WWW www = new WWW ("http://veuspillet.dk/saveQuizBattleResponseData.php", myForm);
+		yield return www;
+
+		Debug.Log (www.text);
+	}
+
 }

@@ -8,4 +8,5 @@ public abstract class DataReceiver : MonoBehaviour {
 	public abstract void ReceiveUsers(User[] users);
 	public abstract void ReceiveQuestions(Question[] questions);
 	public abstract void ReceiveQuizzes(Quiz[] quizzes);
+	public abstract void ReceiveBattleResult(QuizBattleResult battleResult, Question[] questions);
 }

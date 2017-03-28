@@ -34,7 +34,7 @@ public class Login : MonoBehaviour {
 			userNames [i] = segmentedUserData [2];
 			userPassword [i] = segmentedUserData [3];
 
-			print("" + userIDs[i] + " " + userNames [i] + " " + userPassword [i]);
+			//print("" + userIDs[i] + " " + userNames [i] + " " + userPassword [i]);
 
 		}
 
@@ -48,19 +48,20 @@ public class Login : MonoBehaviour {
 	IEnumerator Verify(){
 		int i = 0;
 		bool userFound = false;
-
-		print ("Collective User IDs: " + userIDs.Length);
+		int targetUser = -1;
 
 		while (!userFound && i < userIDs.Length) {
 			if (userNames [i] == bruger.text && userPassword [i] == password.text) {
 				userFound = true;	
 				user = userIDs [i];
+				targetUser = i;
 			}
 			i++;
 		}
 
 		if (userFound) {
 			Debug.Log ("Logged in as: " + user);
+			DataContainer.currentLoggedUser = new User (int.Parse(userIDs [targetUser]), 1, userNames [targetUser], userPassword[targetUser]);
 			Toolbox.FindRequiredComponent<EventSystem> ().OnLoggedIn ();
 
 			/*WWWForm form = new WWWForm();
