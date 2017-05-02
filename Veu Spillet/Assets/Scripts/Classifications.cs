@@ -98,13 +98,15 @@ public struct QuizResult{
 }
 
 public struct QuizBattleResult{
+	public int battleID;
 	public int[] questionIDs;
 	public int[] questionAnswersChallenger;
 	public int[] questionAnswersDefender;
 	public int challengerID;
 	public int defenderID;
 
-	public QuizBattleResult(int[] questionIDs, int[] questionAnswersChallenger, int challengerID, int defenderID){
+	public QuizBattleResult(int battleID, int[] questionIDs, int[] questionAnswersChallenger, int challengerID, int defenderID){
+		this.battleID = battleID;
 		this.questionIDs = questionIDs;
 		this.questionAnswersChallenger = questionAnswersChallenger;
 		this.questionAnswersDefender = new int[30];
@@ -112,7 +114,8 @@ public struct QuizBattleResult{
 		this.defenderID = defenderID;
 	}
 
-	public QuizBattleResult(int[] questionIDs, int[] questionAnswersChallenger, int[] questionAnswersDefender, int challengerID, int defenderID){
+	public QuizBattleResult(int battleID, int[] questionIDs, int[] questionAnswersChallenger, int[] questionAnswersDefender, int challengerID, int defenderID){
+		this.battleID = battleID;
 		this.questionIDs = questionIDs;
 		this.questionAnswersChallenger = questionAnswersChallenger;
 		this.questionAnswersDefender = questionAnswersDefender;
