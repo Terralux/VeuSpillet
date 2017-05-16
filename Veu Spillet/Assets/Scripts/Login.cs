@@ -36,9 +36,6 @@ public class Login : MonoBehaviour {
 			userIDs [i] = segmentedUserData [0];
 			userNames [i] = segmentedUserData [2];
 			userPassword [i] = segmentedUserData [3];
-
-			//print("" + userIDs[i] + " " + userNames [i] + " " + userPassword [i]);
-
 		}
 
 		yield return new WaitForSeconds (0);
