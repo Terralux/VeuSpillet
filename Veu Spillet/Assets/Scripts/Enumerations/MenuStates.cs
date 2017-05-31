@@ -1,9 +1,0 @@
-﻿public enum MenuStates {
-	LOGIN,
-	MAIN_MENU,
-	QUIZ_MENU,
-	SOLO_QUIZ,
-	CHALLENGE_QUIZ,
-	CHALLENGE_RESULTS,
-	QUIZ_RESULTS
-}
