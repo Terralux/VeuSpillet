@@ -10,6 +10,7 @@ public class CategoryContainer : MonoBehaviour {
 
 	public void OnClick(){
 		QuizCategoryMenu.instance.ChoseACategory (myCategory);
+		Debug.Log ("Clicked on Category");
 	}
 
 }

@@ -18,11 +18,11 @@ public class SetupCategories : MonoBehaviour {
 		string dataString = ItemsData.text;
 		string[] categoryData = dataString.Split('|');
 
-		string[] segmentedUserData;
+		string[] segmentedCategoryData;
 		for (int i = 0; i < categoryData.Length-1; i++) {
-			segmentedUserData = categoryData [i].Split (',');
+			segmentedCategoryData = categoryData [i].Split (',');
 
-			categories.Add (new Category (int.Parse (segmentedUserData [0]), segmentedUserData [1]));
+			categories.Add (new Category (int.Parse (segmentedCategoryData [0]), segmentedCategoryData [1]));
 		}
 
 		Debug.Log (categories.Count);

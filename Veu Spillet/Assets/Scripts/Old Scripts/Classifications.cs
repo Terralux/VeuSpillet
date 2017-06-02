@@ -72,10 +72,10 @@ namespace DatabaseClassifications{
 		public int userID;
 		public int level;
 
-		public Quiz(int quizID, string quizName){
+		public Quiz(int quizID, string quizName, int categoryID){
 			this.quizID = quizID;
 			this.quizName = quizName;
-			categoryID = 0;
+			this.categoryID = categoryID;
 			userID = 0;
 			level = 0;
 		}

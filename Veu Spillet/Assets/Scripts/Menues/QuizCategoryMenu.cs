@@ -41,6 +41,10 @@ public class QuizCategoryMenu : BaseMenu {
 	}
 
 	public void ChoseACategory(Category category){
+		Debug.Log ("Received Category");
+
+		SetupQuizzes.instance.LoadQuizzes (category.id);
+
 		currentSession.category = category;
 		QuizMenu.Show (currentSession);
 		Hide ();

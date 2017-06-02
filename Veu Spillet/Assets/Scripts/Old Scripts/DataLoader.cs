@@ -56,7 +56,7 @@ public static class DataLoader {
 
 		for (int i = 0; i < quizDataStrings.Length - 1; i++) {
 			tempStrings = quizDataStrings [i].Split (',');
-			quizzes [i] = new Quiz (int.Parse (tempStrings [0]), tempStrings [1]);//, int.Parse (tempStrings [2]), int.Parse (tempStrings [3]), int.Parse(tempStrings[4]));
+			quizzes [i] = new Quiz (int.Parse (tempStrings [0]), tempStrings [1], 0);//, int.Parse (tempStrings [2]), int.Parse (tempStrings [3]), int.Parse(tempStrings[4]));
 
 			//Debug.Log (quizzes [i].quizID + " : Challenger - " + quizzes[i].quizName + " against - " + quizzes[i].categoryID + " in " + quizzes[i].userID + " : " + quizzes[i].level);
 		}
