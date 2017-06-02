@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DatabaseClassifications;
 
-public class QuizCategoryMenu : BaseMenu, IShowWithArgument {
+public class QuizCategoryMenu : BaseMenu {
 
 	private static QuizSession currentSession;
 
@@ -16,12 +16,12 @@ public class QuizCategoryMenu : BaseMenu, IShowWithArgument {
 		Hide ();
 	}
 
-	public static BaseMenu instance;
+	public static QuizCategoryMenu instance;
 
-	public void Show (QuizSession newCurrentSession)
+	public static void Show (QuizSession newCurrentSession)
 	{
 		currentSession = newCurrentSession;
-		Show ();
+		instance.Show ();
 	}
 
 	public override void Show ()
@@ -32,5 +32,11 @@ public class QuizCategoryMenu : BaseMenu, IShowWithArgument {
 	public override void Hide ()
 	{
 		instance.gameObject.SetActive (false);
+	}
+
+	public void ChoseACategory(Category category){
+		currentSession.category = category;
+		QuizMenu.Show (currentSession);
+		Hide ();
 	}
 }

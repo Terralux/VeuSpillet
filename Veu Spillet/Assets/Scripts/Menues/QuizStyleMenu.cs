@@ -13,7 +13,7 @@ public class QuizStyleMenu : BaseMenu {
 		Hide ();
 	}
 
-	public static BaseMenu instance;
+	public static QuizStyleMenu instance;
 
 	public override void Show ()
 	{
@@ -23,5 +23,10 @@ public class QuizStyleMenu : BaseMenu {
 	public override void Hide ()
 	{
 		instance.gameObject.SetActive (false);
+	}
+
+	public void ChoseAQuizStyle(bool isChallengingUser){
+		QuizCategoryMenu.Show (new QuizSession (isChallengingUser));
+		Hide ();
 	}
 }

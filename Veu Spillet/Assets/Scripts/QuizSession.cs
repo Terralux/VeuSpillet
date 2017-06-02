@@ -6,4 +6,8 @@ public class QuizSession {
 	public Quiz quiz;
 
 	public User defender;
+
+	public QuizSession(bool isChallengingUser){
+		this.isChallengingUser = isChallengingUser;
+	}
 }

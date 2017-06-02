@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class QuizMenu : BaseMenu {
 
+	public static QuizSession currentSession;
+
 	public void Awake(){
 		if (instance != null) {
 			Destroy (this);
@@ -13,7 +15,12 @@ public class QuizMenu : BaseMenu {
 		Hide ();
 	}
 
-	public static BaseMenu instance;
+	public static QuizMenu instance;
+
+	public static void Show(QuizSession currentSession){
+		QuizMenu.currentSession = currentSession;
+		instance.Show ();
+	}
 
 	public override void Show ()
 	{

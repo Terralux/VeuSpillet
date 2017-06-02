@@ -13,7 +13,7 @@ public class MainMenu : BaseMenu {
 		Hide ();
 	}
 
-	public static BaseMenu instance;
+	public static MainMenu instance;
 
 	public override void Show ()
 	{
@@ -23,5 +23,20 @@ public class MainMenu : BaseMenu {
 	public override void Hide ()
 	{
 		instance.gameObject.SetActive (false);
+	}
+
+	public void GoToQuizStyleSelection(){
+		QuizStyleMenu.instance.Show ();
+		instance.Hide ();
+	}
+
+	public void GoToResults(){
+		ResultsMenu.instance.Show ();
+		instance.Hide ();
+	}
+
+	public void GoToLoginMenu(){
+		DataContainer.currentLoggedUser = new DatabaseClassifications.User ();
+		instance.Hide ();
 	}
 }
