@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseMenu : MonoBehaviour {
+public class ResultsMenu : BaseMenu {
 
 	public void Awake(){
 		if (instance != null) {
@@ -10,10 +10,18 @@ public abstract class BaseMenu : MonoBehaviour {
 		} else {
 			instance = this;
 		}
+		Hide ();
 	}
 
 	public static BaseMenu instance;
-	public abstract void Show ();
-	public abstract void Hide ();
 
+	public override void Show ()
+	{
+		instance.gameObject.SetActive (true);
+	}
+
+	public override void Hide ()
+	{
+		instance.gameObject.SetActive (false);
+	}
 }

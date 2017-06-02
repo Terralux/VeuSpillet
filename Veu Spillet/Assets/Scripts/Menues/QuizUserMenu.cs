@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DatabaseClassifications;
 
-public class QuizCategoryMenu : BaseMenu, IShowWithArgument {
+public class QuizUserMenu : BaseMenu {
 
-	private static QuizSession currentSession;
-
-	public void Show (QuizSession newCurrentSession)
-	{
-		currentSession = newCurrentSession;
-		Show ();
+	public void Awake(){
+		if (instance != null) {
+			Destroy (this);
+		} else {
+			instance = this;
+		}
+		Hide ();
 	}
+
+	public static BaseMenu instance;
 
 	public override void Show ()
 	{

@@ -9,39 +9,6 @@ public class Login : MonoBehaviour {
 	public InputField bruger;
 	public InputField password;
 
-	string[] users;
-	string[] userIDs;
-	string[] userNames;
-	string[] userPassword;
-	string user;
-
-	// Use this for initialization
-	void Start () {
-		StartCoroutine (Initiate ());
-	}
-
-	IEnumerator Initiate(){
-		string URL = "http://veu-spillet.dk/Prototype/loadAllUsers";
-		WWW ItemsData = new WWW (URL);
-		yield return ItemsData;
-		string dataString = ItemsData.text;
-		users = dataString.Split('|');
-
-		string[] segmentedUserData;
-		userIDs = new string[users.Length-1];
-		userNames = new string[users.Length-1];
-		userPassword = new string[users.Length-1];
-		for (int i = 0; i < users.Length-1; i++) {
-			segmentedUserData = users [i].Split (',');
-
-			userIDs [i] = segmentedUserData [0];
-			userNames [i] = segmentedUserData [2];
-			userPassword [i] = segmentedUserData [3];
-		}
-
-		yield return new WaitForSeconds (0);
-	}
-
 	public void InitiateLogin(){
 		StartCoroutine (Verify ());
 	}
@@ -51,33 +18,20 @@ public class Login : MonoBehaviour {
 		bool userFound = false;
 		int targetUser = -1;
 
-		while (!userFound && i < userIDs.Length) {
-			if (userNames [i] == bruger.text && userPassword [i] == password.text) {
-				userFound = true;	
-				user = userIDs [i];
+		while (!userFound && i < SetupUsers.users.Count) {
+			if (SetupUsers.users [i].userName == bruger.text && SetupUsers.users [i].userPassword == password.text) {
+				userFound = true;
 				targetUser = i;
 			}
 			i++;
 		}
 
 		if (userFound) {
-			Debug.Log ("Logged in as: " + user);
-			DataContainer.currentLoggedUser = new User (int.Parse(userIDs [targetUser]), 1, userNames [targetUser], userPassword[targetUser]);
-			Toolbox.FindRequiredComponent<EventSystem> ().OnLoggedIn ();
-
-			/*WWWForm form = new WWWForm();
-
-			form.AddField("user", user);
-			WWW www = new WWW("http://veuspillet.dk/set_u.php", form);
-			print ("Send " + Time.time);
-
-			yield return new WaitForSeconds (1f);
-
-			Application.OpenURL ("http://veuspillet.dk/veuMenu/");
-			*/
+			Debug.Log ("Logged in as: " + SetupUsers.users [targetUser].userName);
+			DataContainer.currentLoggedUser = SetupUsers.users [targetUser];
+			MainMenu.instance.Show ();
 		}else{
 			Debug.LogWarning ("No user found!");
-			Toolbox.FindRequiredComponent<EventSystem> ().OnFailedLogin ();
 		}
 
 		yield return new WaitForSeconds (0.5f);

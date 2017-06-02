@@ -54,12 +54,14 @@ namespace DatabaseClassifications{
 		public int teamID;
 		public string userName;
 		public string userPassword;
+		public bool isAdmin;
 
-		public User(int userID, int teamID, string userName, string userPassword){
+		public User(int userID, int teamID, string userName, string userPassword, bool isAdmin){
 			this.userID = userID;
 			this.teamID = teamID;
 			this.userName = userName;
 			this.userPassword = userPassword;
+			this.isAdmin = isAdmin;
 		}
 	}
 

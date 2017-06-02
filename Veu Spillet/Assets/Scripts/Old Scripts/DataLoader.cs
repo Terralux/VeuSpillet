@@ -92,7 +92,7 @@ public static class DataLoader {
 
 		for (int i = 0; i < userDataStrings.Length - 1; i++) {
 			tempStrings = userDataStrings [i].Split (',');
-			users [i] = new User (int.Parse (tempStrings [0]), int.Parse (tempStrings [1]), tempStrings [2], tempStrings[3]);
+			users [i] = new User (int.Parse (tempStrings [0]), int.Parse (tempStrings [1]), tempStrings [2], tempStrings[3],"1" == tempStrings[4]);
 
 			//Debug.Log (users[i].userID + users[1].teamID + users[i].userName + users[i].userPassword);
 		}
