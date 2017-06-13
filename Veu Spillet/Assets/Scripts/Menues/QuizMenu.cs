@@ -40,7 +40,11 @@ public class QuizMenu : BaseMenu {
 
 	public void ChoseAQuiz(Quiz quiz){
 		currentSession.quiz = quiz;
-		QuizUserMenu.Show (currentSession);
+		if (currentSession.isChallengingUser) {
+			QuizUserMenu.Show (currentSession);
+		} else {
+			QuizGameMenu.Show (currentSession);
+		}
 		Hide ();
 	}
 

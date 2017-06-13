@@ -34,18 +34,16 @@ namespace DatabaseClassifications{
 	public struct Question{
 		public int questionID;
 		public string question;
-		public string correctAnswer;
-		public string wrongAnswer1;
-		public string wrongAnswer2;
-		public string wrongAnswer3;
+		public string[] answers;
 
 		public Question(int questionID, string question, string correctAnswer, string wrongAnswer1, string wrongAnswer2, string wrongAnswer3){
 			this.questionID = questionID;
 			this.question = question;
-			this.correctAnswer = correctAnswer;
-			this.wrongAnswer1 = wrongAnswer1;
-			this.wrongAnswer2 = wrongAnswer2;
-			this.wrongAnswer3 = wrongAnswer3;
+			answers = new string[4];
+			answers [0] = correctAnswer;
+			answers [1] = wrongAnswer1;
+			answers [2] = wrongAnswer2;
+			answers [3] = wrongAnswer3;
 		}
 	}
 

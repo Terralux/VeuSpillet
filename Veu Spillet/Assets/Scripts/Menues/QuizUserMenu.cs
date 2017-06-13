@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DatabaseClassifications;
 
 public class QuizUserMenu : BaseMenu {
 
 	private static QuizSession currentSession;
+	public GameObject contentTarget;
+	private static GameObject contentButton;
 
 	public void Awake(){
 		if (instance != null) {
@@ -12,6 +16,7 @@ public class QuizUserMenu : BaseMenu {
 		} else {
 			instance = this;
 		}
+		contentButton = Resources.Load ("User Button") as GameObject;
 		Hide ();
 	}
 
@@ -20,6 +25,7 @@ public class QuizUserMenu : BaseMenu {
 	public static void Show (QuizSession newCurrentSession)
 	{
 		currentSession = newCurrentSession;
+		InstantiateUserButtons ();
 		instance.Show ();
 	}
 
@@ -31,5 +37,21 @@ public class QuizUserMenu : BaseMenu {
 	public override void Hide ()
 	{
 		instance.gameObject.SetActive (false);
+	}
+
+	public void ChoseADefender(User user){
+		currentSession.defender = user;
+		QuizGameMenu.Show (currentSession);
+		Hide ();
+	}
+
+	public static void InstantiateUserButtons(){
+		foreach (User user in SetupUsers.users) {
+			if (user.userID != DataContainer.currentLoggedUser.userID) {
+				GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
+				go.GetComponentInChildren<Text> ().text = user.userName;
+				go.GetComponentInChildren<UserContainer> ().myUser = user;
+			}
+		}
 	}
 }

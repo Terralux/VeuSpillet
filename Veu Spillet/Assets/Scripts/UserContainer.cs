@@ -9,7 +9,7 @@ public class UserContainer : MonoBehaviour {
 	public User myUser;
 
 	public void OnClick(){
-		
+		QuizUserMenu.instance.ChoseADefender (myUser);
 	}
 
 }
