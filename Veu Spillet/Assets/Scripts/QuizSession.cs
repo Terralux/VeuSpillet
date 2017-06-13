@@ -1,4 +1,5 @@
 ﻿using DatabaseClassifications;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class QuizSession {
@@ -12,7 +13,7 @@ public class QuizSession {
 
 	private int currentQuestionIndex = 0;
 	private int[] lookUpTable = new int[]{ 0, 1, 2, 3 };
-	private List<int> answers = new List<int> ();
+	public List<int> answers = new List<int> ();
 
 	public bool hasMoreQuestions = true;
 
@@ -67,5 +68,18 @@ public class QuizSession {
 			}
 		}
 		return -1;
+	}
+
+	public int GetAnswerAt(int index){
+		if (index < answers.Count) {
+			return answers [index];
+		} else {
+			UnityEngine.Debug.LogWarning ("Tried to get Answer out of range");
+			return -1;
+		}
+	}
+
+	public void SaveToDatabase(){
+		DatabaseSaver.SaveToDatabase (this);
 	}
 }

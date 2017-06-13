@@ -128,6 +128,8 @@ public class QuizGameMenu : BaseMenu {
 
 		if (currentSession.hasMoreQuestions) {
 			(instance as QuizGameMenu).SetupQuestionUI (currentSession.GetNextQuestion ());
+		} else {
+			QuizResultsMenu.Show (currentSession);
 		}
 	}
 }
