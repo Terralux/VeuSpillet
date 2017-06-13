@@ -21,7 +21,7 @@ public class SetupQuestions : MonoBehaviour {
 	}
 
 	public static IEnumerator Initiate(int quizID){
-		string URL = "http://veu-spillet.dk/Prototype/loadAllQuizzesFromCategory.php/?cid=" + quizID;
+		string URL = "http://veu-spillet.dk/Prototype/loadAllQuestionsFromQuiz.php/?qid=" + quizID;
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
 		string dataString = ItemsData.text;
@@ -31,7 +31,9 @@ public class SetupQuestions : MonoBehaviour {
 		for (int i = 0; i < questionData.Length-1; i++) {
 			segmentedQuestionsData = questionData [i].Split (',');
 
-			questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), segmentedQuestionsData [1], segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5]));
+			Debug.Log (questionData [i]);
+
+			questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
 		}
 
 		Debug.Log ("Got Questions");

@@ -14,6 +14,8 @@ public class QuizSession {
 	private int[] lookUpTable = new int[]{ 0, 1, 2, 3 };
 	private List<int> answers = new List<int> ();
 
+	public bool hasMoreQuestions = true;
+
 	public QuizSession(bool isChallengingUser){
 		this.isChallengingUser = isChallengingUser;
 	}
@@ -21,6 +23,7 @@ public class QuizSession {
 	public string[] StartQuiz(){
 		currentQuestionIndex = -1;
 		answers = new List<int> ();
+		hasMoreQuestions = true;
 		return GetNextQuestion ();
 	}
 
@@ -42,6 +45,10 @@ public class QuizSession {
 			lookUpTable [rand] = tempInt;
 		}
 
+		if (currentQuestionIndex == questions.Length - 1) {
+			hasMoreQuestions = false;
+		}
+
 		return questionAnswers;
 	}
 
@@ -51,5 +58,14 @@ public class QuizSession {
 
 	public void StoreAnswer(int answerIndex){
 		answers.Add(lookUpTable [answerIndex]);
+	}
+
+	public int GetCorrectAnswer(){
+		for (int i = 0; i < lookUpTable.Length; i++) {
+			if (lookUpTable [i] == 0) {
+				return i;
+			}
+		}
+		return -1;
 	}
 }

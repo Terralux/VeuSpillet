@@ -28,6 +28,7 @@ public class QuizGameMenu : BaseMenu {
 	public static void Show (QuizSession currentSession){
 		QuizGameMenu.currentSession = currentSession;
 		SetupQuestions.instance.LoadQuestions (currentSession.quiz.quizID);
+		instance.Show ();
 	}
 
 	public override void Show ()
@@ -54,8 +55,79 @@ public class QuizGameMenu : BaseMenu {
 		(instance as QuizGameMenu).question.text = currentSession.GetCurrentQuestion ();
 	}
 
-	public static void AnsweredQuestion(int buttonIndex){
-		currentSession.StoreAnswer (buttonIndex);		
-		(instance as QuizGameMenu).SetupQuestionUI (currentSession.GetNextQuestion ());
+	public void AnsweredQuestion(int buttonIndex){
+
+		if (currentSession.GetCorrectAnswer () == buttonIndex) {
+			switch (buttonIndex) {
+			case 0:
+				answer1.color = Color.green;
+				break;
+			case 1:
+				answer2.color = Color.green;
+				break;
+			case 2:
+				answer3.color = Color.green;
+				break;
+			case 3:
+				answer4.color = Color.green;
+				break;
+			}
+		} else {
+			switch (buttonIndex) {
+			case 0:
+				answer1.color = Color.red;
+				break;
+			case 1:
+				answer2.color = Color.red;
+				break;
+			case 2:
+				answer3.color = Color.red;
+				break;
+			case 3:
+				answer4.color = Color.red;
+				break;
+			}
+
+			switch (currentSession.GetCorrectAnswer ()) {
+			case 0:
+				answer1.color = Color.green;
+				break;
+			case 1:
+				answer2.color = Color.green;
+				break;
+			case 2:
+				answer3.color = Color.green;
+				break;
+			case 3:
+				answer4.color = Color.green;
+				break;
+			}
+		}
+
+		currentSession.StoreAnswer (buttonIndex);
+		StartCoroutine (WaitForNextQuestion ());
+	}
+
+	IEnumerator WaitForNextQuestion(){
+		answer1.GetComponent<Button> ().interactable = false;
+		answer2.GetComponent<Button> ().interactable = false;
+		answer3.GetComponent<Button> ().interactable = false;
+		answer4.GetComponent<Button> ().interactable = false;
+
+		yield return new WaitForSeconds (2f);
+
+		answer1.GetComponent<Button> ().interactable = true;
+		answer2.GetComponent<Button> ().interactable = true;
+		answer3.GetComponent<Button> ().interactable = true;
+		answer4.GetComponent<Button> ().interactable = true;
+
+		answer1.color = Color.white;
+		answer2.color = Color.white;
+		answer3.color = Color.white;
+		answer4.color = Color.white;
+
+		if (currentSession.hasMoreQuestions) {
+			(instance as QuizGameMenu).SetupQuestionUI (currentSession.GetNextQuestion ());
+		}
 	}
 }
