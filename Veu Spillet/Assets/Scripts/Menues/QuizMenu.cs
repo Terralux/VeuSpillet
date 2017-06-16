@@ -40,6 +40,8 @@ public class QuizMenu : BaseMenu {
 
 	public void ChoseAQuiz(Quiz quiz){
 		currentSession.quiz = quiz;
+		Clear ();
+
 		if (currentSession.isChallengingUser) {
 			QuizUserMenu.Show (currentSession);
 		} else {
@@ -53,6 +55,14 @@ public class QuizMenu : BaseMenu {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
 			go.GetComponentInChildren<Text> ().text = quiz.quizName;
 			go.GetComponentInChildren<QuizContainer> ().myQuiz = quiz;
+		}
+	}
+
+	private void Clear(){
+		foreach (Transform t in instance.contentTarget.transform) {
+			if (t != instance.contentTarget.transform) {
+				Destroy (t.gameObject);
+			}
 		}
 	}
 }

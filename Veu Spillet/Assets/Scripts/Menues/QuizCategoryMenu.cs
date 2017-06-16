@@ -47,6 +47,7 @@ public class QuizCategoryMenu : BaseMenu {
 
 		currentSession.category = category;
 		QuizMenu.Show (currentSession);
+		Clear ();
 		Hide ();
 	}
 
@@ -55,6 +56,14 @@ public class QuizCategoryMenu : BaseMenu {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
 			go.GetComponentInChildren<Text> ().text = cat.name;
 			go.GetComponentInChildren<CategoryContainer> ().myCategory = cat;
+		}
+	}
+
+	private void Clear(){
+		foreach (Transform t in instance.contentTarget.transform) {
+			if (t != instance.contentTarget.transform) {
+				Destroy (t.gameObject);
+			}
 		}
 	}
 }

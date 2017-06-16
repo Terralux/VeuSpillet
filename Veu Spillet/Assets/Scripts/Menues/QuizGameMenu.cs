@@ -57,7 +57,7 @@ public class QuizGameMenu : BaseMenu {
 
 	public void AnsweredQuestion(int buttonIndex){
 
-		if (currentSession.GetCorrectAnswer () == buttonIndex) {
+		if (currentSession.GetCurrentAnswer () == buttonIndex) {
 			switch (buttonIndex) {
 			case 0:
 				answer1.color = Color.green;
@@ -88,7 +88,7 @@ public class QuizGameMenu : BaseMenu {
 				break;
 			}
 
-			switch (currentSession.GetCorrectAnswer ()) {
+			switch (currentSession.GetCurrentAnswer ()) {
 			case 0:
 				answer1.color = Color.green;
 				break;
@@ -130,6 +130,16 @@ public class QuizGameMenu : BaseMenu {
 			(instance as QuizGameMenu).SetupQuestionUI (currentSession.GetNextQuestion ());
 		} else {
 			QuizResultsMenu.Show (currentSession);
+			Hide ();
+			Clear ();
 		}
+	}
+
+	private void Clear(){
+		question.text = "";
+		answer1.text = "";
+		answer2.text = "";
+		answer3.text = "";
+		answer4.text = "";
 	}
 }

@@ -27,7 +27,9 @@ public class QuizResultsMenu : BaseMenu {
 
 		for (int i = 0; i < currentSession.questions.Length; i++) {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
-			contentButton.GetComponent<ResultsContainer> ().Fill (currentSession.questions [i].question, currentSession.questions [i].answers [0], currentSession.questions [i].answers [currentSession.GetAnswerAt (i)]);
+			contentButton.GetComponent<ResultsContainer> ().Fill (currentSession.questions [i].question,
+				currentSession.questions [i].answers [0],
+				currentSession.questions [i].answers [currentSession.GetAnswerAt (i)]);
 		}
 
 		currentSession.SaveToDatabase ();
@@ -41,5 +43,19 @@ public class QuizResultsMenu : BaseMenu {
 	public override void Hide ()
 	{
 		instance.gameObject.SetActive (false);
+	}
+
+	public void GoToMainMenu(){
+		MainMenu.instance.Show ();
+		Clear ();
+		Hide ();
+	}
+
+	private void Clear(){
+		foreach (Transform t in instance.contentTarget.transform) {
+			if (t != instance.contentTarget.transform) {
+				Destroy (t.gameObject);
+			}
+		}
 	}
 }

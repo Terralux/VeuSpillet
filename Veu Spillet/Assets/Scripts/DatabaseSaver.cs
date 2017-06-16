@@ -4,7 +4,21 @@ using UnityEngine;
 
 public class DatabaseSaver : MonoBehaviour {
 
-	public static IEnumerator SaveToDatabase(QuizSession currentSession){
+	public static DatabaseSaver instance; 
+
+	void Awake(){
+		if (instance != null) {
+			Destroy (this);
+		} else {
+			instance = this;
+		}
+	}
+
+	public void SaveSession(QuizSession currentSession){
+		StartCoroutine (SaveToDatabase (currentSession));
+	}
+
+	public IEnumerator SaveToDatabase(QuizSession currentSession){
 		Debug.Log ("Is Saving");
 		WWWForm myForm = new WWWForm();
 		myForm.AddField ("quizID", currentSession.quiz.quizID);

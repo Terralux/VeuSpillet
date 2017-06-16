@@ -17,6 +17,7 @@ public class SetupQuizzes : MonoBehaviour {
 	}
 
 	public void LoadQuizzes(int categoryID){
+		quizzes.Clear ();
 		StartCoroutine (Initiate (categoryID));
 	}
 

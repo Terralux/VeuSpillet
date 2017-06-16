@@ -42,6 +42,7 @@ public class QuizUserMenu : BaseMenu {
 	public void ChoseADefender(User user){
 		currentSession.defender = user;
 		QuizGameMenu.Show (currentSession);
+		Clear ();
 		Hide ();
 	}
 
@@ -51,6 +52,14 @@ public class QuizUserMenu : BaseMenu {
 				GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
 				go.GetComponentInChildren<Text> ().text = user.userName;
 				go.GetComponentInChildren<UserContainer> ().myUser = user;
+			}
+		}
+	}
+
+	private void Clear(){
+		foreach (Transform t in instance.contentTarget.transform) {
+			if (t != instance.contentTarget.transform) {
+				Destroy (t.gameObject);
 			}
 		}
 	}
