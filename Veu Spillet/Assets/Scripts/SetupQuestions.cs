@@ -34,7 +34,7 @@ public class SetupQuestions : MonoBehaviour {
 
 			Debug.Log (questionData [i]);
 
-			questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
+			questions.Add (new Question (int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
 		}
 
 		Debug.Log ("Got Questions");

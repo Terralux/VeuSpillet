@@ -88,11 +88,13 @@ namespace DatabaseClassifications{
 	}
 
 	public struct QuizResult{
+		public int quizID;
 		public int[] questionIDs;
 		public int[] questionAnswers;
 		public int userID;
 
-		public QuizResult(int[] questionIDs, int[] questionAnswers, int userID){
+		public QuizResult(int quizID, int[] questionIDs, int[] questionAnswers, int userID){
+			this.quizID = quizID;
 			this.questionIDs = questionIDs;
 			this.questionAnswers = questionAnswers;
 			this.userID = userID;
