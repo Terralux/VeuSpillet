@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MainMenu : BaseMenu {
 
+	public GameObject adminOptions;
+
 	public void Awake(){
 		if (instance != null) {
 			Destroy (this);
@@ -17,6 +19,8 @@ public class MainMenu : BaseMenu {
 
 	public override void Show ()
 	{
+		adminOptions.SetActive (DataContainer.currentLoggedUser.isAdmin);
+
 		instance.gameObject.SetActive (true);
 	}
 
@@ -37,6 +41,11 @@ public class MainMenu : BaseMenu {
 
 	public void GoToLoginMenu(){
 		DataContainer.currentLoggedUser = new DatabaseClassifications.User ();
+		instance.Hide ();
+	}
+
+	public void GoToAdminMenu(){
+		AdminMenu.instance.Show ();
 		instance.Hide ();
 	}
 }

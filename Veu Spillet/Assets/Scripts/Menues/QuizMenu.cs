@@ -17,7 +17,6 @@ public class QuizMenu : BaseMenu {
 			instance = this;
 		}
 		contentButton = Resources.Load ("Quiz Button") as GameObject;
-		Debug.Log (contentButton);
 		Hide ();
 	}
 

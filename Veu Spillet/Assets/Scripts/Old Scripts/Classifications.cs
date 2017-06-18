@@ -99,6 +99,10 @@ namespace DatabaseClassifications{
 			this.questionAnswers = questionAnswers;
 			this.userID = userID;
 		}
+
+		public void AddQuestion(int questionID, int questionAnswer){
+			
+		}
 	}
 
 	public struct QuizBattleResult{

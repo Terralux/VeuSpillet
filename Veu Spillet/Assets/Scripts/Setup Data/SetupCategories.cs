@@ -25,7 +25,6 @@ public class SetupCategories : MonoBehaviour {
 			categories.Add (new Category (int.Parse (segmentedCategoryData [0]), segmentedCategoryData [1]));
 		}
 
-		Debug.Log (categories.Count);
 		yield return new WaitForSeconds (0);
 	}
 }

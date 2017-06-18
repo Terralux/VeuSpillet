@@ -12,7 +12,6 @@ public class QuizSession {
 	public Question[] questions;
 
 	private int currentQuestionIndex = 0;
-	private List<int[]> lookUpTable = new List<int[]> ();
 	public List<int> answers = new List<int> ();
 
 	public bool hasMoreQuestions = true;
@@ -30,24 +29,11 @@ public class QuizSession {
 
 	public string[] GetNextQuestion(){
 		currentQuestionIndex++;
-		lookUpTable.Add (new int[]{ 0, 1, 2, 3 });
 
 		string[] questionAnswers = new string[questions [currentQuestionIndex].answers.Length];
 
 		for (int i = 0; i < 4; i++) {
 			questionAnswers [i] = questions [currentQuestionIndex].answers [i];
-		}
-
-		for (int i = 0; i < 10; i++) {
-			int rand = UnityEngine.Random.Range (0, 4);
-
-			string temp = questionAnswers [i % 4];
-			questionAnswers [i % 4] = questionAnswers [rand];
-			questionAnswers [rand] = temp;
-
-			int tempInt = lookUpTable[currentQuestionIndex] [i % 4];
-			lookUpTable[currentQuestionIndex] [i % 4] = lookUpTable[currentQuestionIndex] [rand];
-			lookUpTable[currentQuestionIndex] [rand] = tempInt;
 		}
 
 		if (currentQuestionIndex == questions.Length - 1) {
@@ -62,25 +48,15 @@ public class QuizSession {
 	}
 
 	public void StoreAnswer(int answerIndex) {
-		answers.Add(lookUpTable[currentQuestionIndex] [answerIndex]);
+		answers.Add (answerIndex);
 	}
 
 	public int GetCurrentAnswer(){
-		for (int i = 0; i < lookUpTable[currentQuestionIndex].Length; i++) {
-			if (lookUpTable[currentQuestionIndex] [i] == 0) {
-				return i;
-			}
-		}
-		return -1;
+		return 0;
 	}
 
 	public int GetCorrectAnswer(int questionIndex){
-		for (int i = 0; i < lookUpTable[questionIndex].Length; i++) {
-			if (lookUpTable[questionIndex] [i] == 0) {
-				return i;
-			}
-		}
-		return -1;
+		return answers[questionIndex];
 	}
 
 	public int GetAnswerAt(int index){

@@ -31,6 +31,7 @@ public class Login : MonoBehaviour {
 			DataContainer.currentLoggedUser = SetupUsers.users [targetUser];
 			MainMenu.instance.Show ();
 		}else{
+			SetupUsers.instance.Reload ();
 			Debug.LogWarning ("No user found!");
 		}
 

@@ -21,6 +21,10 @@ public class DatabaseSaver : MonoBehaviour {
 
 	public IEnumerator SaveToDatabase(QuizSession currentSession){
 
+		foreach (Question q in currentSession.questions) {
+			Debug.Log (q.questionID);
+		}
+
 		// Check for other quizResults
 		// Sort the other quizResults or write new quizResults
 		WWWForm myForm = new WWWForm();
@@ -30,41 +34,71 @@ public class DatabaseSaver : MonoBehaviour {
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/loadQuizResult.php", myForm);
 		yield return www;
 
-		string dataString = www.text;
-		string[] quizResultData = dataString.Split('|');
+		QuizResult quizResults = new QuizResult ();
 
-		List<QuizResult> quizResults = new List<QuizResult> ();
+		if (www.text != "") {
+			#region Loading previous Data
+			string dataString = www.text;
+			string[] quizResultData = dataString.Split ('|');
 
-		string[] segmentedCategoryData;
-		for (int i = 0; i < quizResultData.Length-1; i++) {
-			segmentedCategoryData = quizResultData [i].Split (',');
+			string[] segmentedCategoryData;
+			for (int i = 0; i < quizResultData.Length - 1; i++) {
+				segmentedCategoryData = quizResultData [i].Split (',');
 
-			string[] questionIDs = segmentedCategoryData [3].Split (' ');
-			int[] questionIDsInts = new int[questionIDs.Length];
+				string[] questionIDs = segmentedCategoryData [3].Split (' ');
+				int[] questionIDsInts = new int[questionIDs.Length - 1];
 
-			string[] answers = segmentedCategoryData [1].Split (' ');
-			int[] answersInts = new int[questionIDs.Length];
+				string[] answers = segmentedCategoryData [1].Split (' ');
+				int[] answersInts = new int[questionIDs.Length - 1];
 
-			for (int j = 0; j < questionIDs.Length; j++) {
-				questionIDsInts [j] = int.Parse (questionIDs [j]);
-				answersInts [j] = int.Parse (answers [j]);
+				for (int j = 0; j < questionIDs.Length - 1; j++) {
+					questionIDsInts [j] = int.Parse (questionIDs [j]);
+					answersInts [j] = int.Parse (answers [j]);
+				}
+
+				quizResults = new QuizResult (int.Parse (segmentedCategoryData [0]), answersInts, questionIDsInts, int.Parse (segmentedCategoryData [2]));
+			}
+			#endregion
+
+			#region Sending new Data
+			Debug.Log ("Currently updating");
+			for(int j = 0; j < currentSession.questions.Length; j++){
+
+				bool hasFoundCurrentQuestion = false;
+
+				for (int i = 0; i < quizResults.questionIDs.Length; i++) {
+					if (quizResults.questionIDs [i] == currentSession.questions [j].questionID) {
+						hasFoundCurrentQuestion = true;
+						quizResults.questionAnswers [i] = currentSession.answers [j];
+					}
+				}
+
+				if (!hasFoundCurrentQuestion) {
+					quizResults.AddQuestion (currentSession.questions [j].questionID, currentSession.answers [j]);
+				}
 			}
 
-			quizResults.Add (new QuizResult (int.Parse (segmentedCategoryData [0]), answersInts, questionIDsInts, int.Parse (segmentedCategoryData [2])));
-		}
+			myForm = new WWWForm ();
+			myForm.AddField ("quizID", currentSession.quiz.quizID);
 
-		if (quizResults.Count > 0) {
 			string collectiveAnswers = "";
 			string collectiveQuestionIDs = "";
 
-			/// foreach new question 
-			/*
-			for (int i = 0; i < quizResults.Count; i++) {
-				if(true) {
-					collectiveAnswers += currentSession.answers[i] + " ";
-				}
+			for (int i = 0; i < quizResults.questionAnswers.Length; i++) {
+				collectiveAnswers += quizResults.questionAnswers [i] + " ";
+				collectiveQuestionIDs += quizResults.questionIDs [i] + " ";
 			}
-			*/
+
+			Debug.Log (collectiveAnswers + " : " + collectiveQuestionIDs);
+
+			myForm.AddField ("answers", collectiveAnswers);
+			myForm.AddField ("userID", DataContainer.currentLoggedUser.userID);
+			myForm.AddField ("questionIDs", collectiveQuestionIDs);
+
+			www = new WWW ("http://veu-spillet.dk/Prototype/saveQuizResults.php", myForm);
+			yield return www;
+			Debug.Log (www.text);
+			#endregion
 		} else {
 			myForm = new WWWForm ();
 			myForm.AddField ("quizID", currentSession.quiz.quizID);
@@ -85,5 +119,36 @@ public class DatabaseSaver : MonoBehaviour {
 			yield return www;
 			Debug.Log (www.text);
 		}
+	}
+
+	public void SaveUser(User user){
+		StartCoroutine (SaveUserToDatabase (user));
+	}
+
+	public IEnumerator SaveUserToDatabase(User user){
+		WWWForm myForm = new WWWForm();
+		myForm.AddField ("username", user.userName);
+		myForm.AddField ("password", user.userPassword);
+		myForm.AddField ("adminRights", user.isAdmin ? 1 : 0);
+
+		WWW www = new WWW ("http://veu-spillet.dk/Prototype/saveUser.php", myForm);
+		yield return www;
+
+		Debug.Log (www.text);
+	}
+
+	public void SaveQuiz(Quiz quiz){
+		StartCoroutine (SaveQuizToDatabase (quiz));
+	}
+
+	public IEnumerator SaveQuizToDatabase(Quiz quiz){
+		WWWForm myForm = new WWWForm();
+		myForm.AddField ("name", quiz.quizName);
+		myForm.AddField ("categoryID", quiz.categoryID);
+
+		WWW www = new WWW ("http://veu-spillet.dk/Prototype/saveQuiz.php", myForm);
+		yield return www;
+
+		Debug.Log (www.text);
 	}
 }

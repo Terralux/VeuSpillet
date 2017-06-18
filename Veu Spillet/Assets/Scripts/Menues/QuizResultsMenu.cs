@@ -27,9 +27,12 @@ public class QuizResultsMenu : BaseMenu {
 
 		for (int i = 0; i < currentSession.questions.Length; i++) {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
-			contentButton.GetComponent<ResultsContainer> ().Fill (currentSession.questions [i].question,
+
+			go.GetComponent<ResultsContainer> ().Fill (
+				currentSession.questions [i].question,
 				currentSession.questions [i].answers [0],
-				currentSession.questions [i].answers [currentSession.GetAnswerAt (i)]);
+				currentSession.questions [i].answers [currentSession.answers [i]]
+			);
 		}
 
 		currentSession.SaveToDatabase ();

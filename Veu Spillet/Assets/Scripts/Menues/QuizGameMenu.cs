@@ -56,7 +56,6 @@ public class QuizGameMenu : BaseMenu {
 	}
 
 	public void AnsweredQuestion(int buttonIndex){
-
 		if (currentSession.GetCurrentAnswer () == buttonIndex) {
 			switch (buttonIndex) {
 			case 0:
@@ -114,7 +113,7 @@ public class QuizGameMenu : BaseMenu {
 		answer3.GetComponent<Button> ().interactable = false;
 		answer4.GetComponent<Button> ().interactable = false;
 
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (1.5f);
 
 		answer1.GetComponent<Button> ().interactable = true;
 		answer2.GetComponent<Button> ().interactable = true;
