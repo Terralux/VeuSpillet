@@ -31,6 +31,7 @@ public class CreateQuizMenu : BaseMenu {
 
 	public override void Hide ()
 	{
+		Clear ();
 		instance.gameObject.SetActive (false);
 	}
 
@@ -57,7 +58,6 @@ public class CreateQuizMenu : BaseMenu {
 			DatabaseSaver.instance.SaveQuiz (newQuiz);
 			AdminMenu.instance.Show ();
 			instance.Hide ();
-			Clear ();
 		}
 	}
 

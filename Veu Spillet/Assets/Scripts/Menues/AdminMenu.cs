@@ -21,6 +21,7 @@ public class AdminMenu : BaseMenu {
 		SetupUsers.instance.Reload ();
 		SetupCategories.instance.Reload ();
 		SetupQuizzes.instance.LoadAllQuizzes ();
+		SetupQuestions.instance.LoadAllQuestions ();
 	}
 
 	public override void Hide ()
@@ -50,5 +51,9 @@ public class AdminMenu : BaseMenu {
 
 	public void DeleteCategory(){
 		DeleteFromListMenu.instance.Show (2);
+	}
+
+	public void DeleteQuestion(){
+		DeleteFromListMenu.instance.Show (3);
 	}
 }

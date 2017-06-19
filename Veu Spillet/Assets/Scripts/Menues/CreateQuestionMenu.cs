@@ -36,6 +36,7 @@ public class CreateQuestionMenu : BaseMenu {
 
 	public override void Hide ()
 	{
+		Clear ();
 		instance.gameObject.SetActive (false);
 	}
 
@@ -60,16 +61,15 @@ public class CreateQuestionMenu : BaseMenu {
 		DatabaseSaver.instance.SaveQuestion (newQuestion);
 		AdminMenu.instance.Show ();
 		instance.Hide ();
-		Clear ();
 	}
 
 	public static void Clear(){
 		instance.quiz = new Quiz ();
 
-		foreach (Transform t in instance.contentTarget.GetComponentsInChildren<Transform>()) {
-			if (t != instance.contentTarget.transform) {
-				t.GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
-				Destroy (t.gameObject);
+		for (int i = 0; i < instance.contentTarget.transform.childCount; i++) {
+			if (instance.contentTarget.transform.GetChild (i) != instance.transform) {
+				instance.contentTarget.transform.GetChild (i).GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
+				Destroy (instance.contentTarget.transform.GetChild (i).gameObject);
 			}
 		}
 

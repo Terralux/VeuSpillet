@@ -57,7 +57,7 @@ public class QuizMenu : BaseMenu {
 		}
 	}
 
-	private void Clear(){
+	public void Clear(){
 		foreach (Transform t in instance.contentTarget.transform) {
 			if (t != instance.contentTarget.transform) {
 				Destroy (t.gameObject);

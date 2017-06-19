@@ -68,4 +68,22 @@ public class DatabaseDeleter : MonoBehaviour {
 			DeleteFromListMenu.instance.Error ();
 		}
 	}
+
+	public void DeleteQuestion(Question question){
+		StartCoroutine (DeleteQuestionFromDatabase (question));
+	}
+
+	private IEnumerator DeleteQuestionFromDatabase(Question question){
+		WWWForm myForm = new WWWForm();
+		myForm.AddField ("questionID", question.questionID);
+
+		WWW www = new WWW ("http://veu-spillet.dk/Prototype/deleteQuestion.php", myForm);
+		yield return www;
+
+		if (www.text != "Error") {
+			DeleteFromListMenu.Clear ();
+		} else {
+			DeleteFromListMenu.instance.Error ();
+		}
+	}
 }

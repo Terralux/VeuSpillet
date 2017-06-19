@@ -43,4 +43,31 @@ public class SetupQuestions : MonoBehaviour {
 
 		yield return new WaitForSeconds (0);
 	}
+
+	public void LoadAllQuestions(){
+		questions.Clear ();
+		StartCoroutine (LoadQuestions ());
+	}
+
+	public static IEnumerator LoadQuestions(){
+		string URL = "http://veu-spillet.dk/Prototype/loadAllQuestions.php/";
+		WWW ItemsData = new WWW (URL);
+		yield return ItemsData;
+
+		Debug.Log (ItemsData.text);
+
+		string dataString = ItemsData.text;
+		string[] questionData = dataString.Split('|');
+
+		string[] segmentedQuestionsData;
+		for (int i = 0; i < questionData.Length-1; i++) {
+			segmentedQuestionsData = questionData [i].Split (',');
+
+			Debug.Log (questionData [i]);
+
+			questions.Add (new Question (int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
+		}
+
+		yield return new WaitForSeconds (0);
+	}
 }

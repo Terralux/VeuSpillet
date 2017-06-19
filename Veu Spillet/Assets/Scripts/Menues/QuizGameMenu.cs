@@ -23,7 +23,7 @@ public class QuizGameMenu : BaseMenu {
 		Hide ();
 	}
 
-	public static BaseMenu instance;
+	public static QuizGameMenu instance;
 
 	public static void Show (QuizSession currentSession){
 		QuizGameMenu.currentSession = currentSession;
@@ -134,7 +134,7 @@ public class QuizGameMenu : BaseMenu {
 		}
 	}
 
-	private void Clear(){
+	public void Clear(){
 		question.text = "";
 		answer1.text = "";
 		answer2.text = "";

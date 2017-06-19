@@ -30,6 +30,8 @@ public class Login : MonoBehaviour {
 			Debug.Log ("Logged in as: " + SetupUsers.users [targetUser].userName);
 			DataContainer.currentLoggedUser = SetupUsers.users [targetUser];
 			MainMenu.instance.Show ();
+			bruger.text = "";
+			password.text = "";
 		}else{
 			SetupUsers.instance.Reload ();
 			Debug.LogWarning ("No user found!");

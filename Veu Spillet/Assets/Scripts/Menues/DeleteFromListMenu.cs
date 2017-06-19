@@ -43,6 +43,10 @@ public class DeleteFromListMenu : BaseMenu {
 			//Load Categories
 			InstantiateCategoryButtons();
 			break;
+		case 3:
+			//Load Questions
+			InstantiateQuestionButtons ();
+			break;
 		}
 	}
 
@@ -66,6 +70,9 @@ public class DeleteFromListMenu : BaseMenu {
 			break;
 		case 2:
 			DatabaseDeleter.instance.DeleteCategory(SetupCategories.categories[buttonIndex]);
+			break;
+		case 3:
+			DatabaseDeleter.instance.DeleteQuestion (SetupQuestions.questions[buttonIndex]);
 			break;
 		}
 	}
@@ -99,6 +106,18 @@ public class DeleteFromListMenu : BaseMenu {
 		foreach (Category cat in SetupCategories.categories) {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
 			go.GetComponentInChildren<Text> ().text = cat.name;
+			EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
+			ebc.myIndex = count;
+			ebc.OnClickSendValue += instance.OnClick;
+			count++;
+		}
+	}
+
+	private static void InstantiateQuestionButtons(){
+		int count = 0;
+		foreach (Question question in SetupQuestions.questions) {
+			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
+			go.GetComponentInChildren<Text> ().text = question.question;
 			EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
 			ebc.myIndex = count;
 			ebc.OnClickSendValue += instance.OnClick;

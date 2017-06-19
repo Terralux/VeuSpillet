@@ -20,7 +20,7 @@ public class MainMenu : BaseMenu {
 	public override void Show ()
 	{
 		adminOptions.SetActive (DataContainer.currentLoggedUser.isAdmin);
-
+		BackToMenu.instance.Show();
 		instance.gameObject.SetActive (true);
 	}
 
@@ -42,6 +42,7 @@ public class MainMenu : BaseMenu {
 	public void GoToLoginMenu(){
 		DataContainer.currentLoggedUser = new DatabaseClassifications.User ();
 		instance.Hide ();
+		BackToMenu.instance.Hide ();
 	}
 
 	public void GoToAdminMenu(){
