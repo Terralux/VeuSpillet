@@ -36,7 +36,7 @@ public class AdminMenu : BaseMenu {
 	}
 
 	public void CreateCategory(){
-		//CreateCategoryMenu.instance.Show();
+		CreateCategoryMenu.instance.Show();
 	}
 
 	public void DeleteUser(){

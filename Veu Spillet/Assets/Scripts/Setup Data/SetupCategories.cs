@@ -26,6 +26,9 @@ public class SetupCategories : MonoBehaviour {
 		string URL = "http://veu-spillet.dk/Prototype/loadAllCategories.php";
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
+
+		categories.Clear ();
+
 		string dataString = ItemsData.text;
 		string[] categoryData = dataString.Split('|');
 
