@@ -11,7 +11,7 @@ public class EmptyButtonContainer : MonoBehaviour {
 	public int myIndex;
 
 	public void OnClick(){
-		DeleteFromListMenu.instance.OnClick (myIndex);
+		//DeleteFromListMenu.instance.OnClick (myIndex);
 
 		if (OnClickSendValue != null) {
 			OnClickSendValue (myIndex);

@@ -7,7 +7,18 @@ public class SetupCategories : MonoBehaviour {
 
 	public static List<Category> categories = new List<Category>();
 
+	public static SetupCategories instance;
+
 	void Awake(){
+		if (instance != null) {
+			Destroy (this);
+		} else {
+			instance = this;
+		}
+		StartCoroutine (Initiate ());
+	}
+
+	public void Reload(){
 		StartCoroutine (Initiate ());
 	}
 

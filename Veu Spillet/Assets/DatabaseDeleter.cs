@@ -26,7 +26,11 @@ public class DatabaseDeleter : MonoBehaviour {
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/deleteUser.php", myForm);
 		yield return www;
 
-		DeleteFromListMenu.Clear ();
+		if (www.text != "Error") {
+			DeleteFromListMenu.Clear ();
+		} else {
+			DeleteFromListMenu.instance.Error ();
+		}
 	}
 
 	public void DeleteQuiz(Quiz quiz){
@@ -40,7 +44,11 @@ public class DatabaseDeleter : MonoBehaviour {
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/deleteQuiz.php", myForm);
 		yield return www;
 
-		DeleteFromListMenu.Clear ();
+		if (www.text != "Error") {
+			DeleteFromListMenu.Clear ();
+		} else {
+			DeleteFromListMenu.instance.Error ();
+		}
 	}
 
 	public void DeleteCategory(Category category){
@@ -54,6 +62,10 @@ public class DatabaseDeleter : MonoBehaviour {
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/deleteCategory.php", myForm);
 		yield return www;
 
-		DeleteFromListMenu.Clear ();
+		if (www.text != "Error") {
+			DeleteFromListMenu.Clear ();
+		} else {
+			DeleteFromListMenu.instance.Error ();
+		}
 	}
 }

@@ -18,6 +18,8 @@ public class AdminMenu : BaseMenu {
 	public override void Show ()
 	{
 		instance.gameObject.SetActive (true);
+		SetupUsers.instance.Reload ();
+		SetupCategories.instance.Reload ();
 	}
 
 	public override void Hide ()

@@ -19,12 +19,14 @@ public class CreateQuizMenu : BaseMenu {
 		} else {
 			instance = this;
 		}
+		contentButton = Resources.Load ("Empty Button") as GameObject;
 		Hide ();
 	}
 
 	public override void Show ()
 	{
 		instance.gameObject.SetActive (true);
+		InstantiateCategoryButtons ();
 	}
 
 	public override void Hide ()
@@ -38,17 +40,24 @@ public class CreateQuizMenu : BaseMenu {
 
 	private static void InstantiateCategoryButtons(){
 		int count = 0;
+		Debug.Log (SetupCategories.categories.Count);
 		foreach (Category cat in SetupCategories.categories) {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
 			go.GetComponentInChildren<Text> ().text = cat.name;
-			go.GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue += instance.OnClick;
+			EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
+			ebc.myIndex = count;
+			ebc.OnClickSendValue += instance.OnClick;
 			count++;
 		}
 	}
 
 	public void CreateQuiz(){
-		Quiz newQuiz = new Quiz (0, username.text, category.id);
-		DatabaseSaver.instance.SaveQuiz (newQuiz);
+		if (category.id > 0) {
+			Quiz newQuiz = new Quiz (0, username.text, category.id);
+			DatabaseSaver.instance.SaveQuiz (newQuiz);
+			AdminMenu.instance.Show ();
+			instance.Hide ();
+		}
 	}
 
 	public static void Clear(){

@@ -4,13 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using DatabaseClassifications;
 
-public class CreateUserMenu : BaseMenu {
-	public static CreateUserMenu instance;
+public class CreateCategoryMenu : BaseMenu {
+	public static CreateCategoryMenu instance;
 
-	public InputField username;
-	public InputField password;
-
-	public Toggle hasAdminRights;
+	public InputField categoryNameField;
 
 	void Awake(){
 		if (instance != null) {
@@ -31,11 +28,13 @@ public class CreateUserMenu : BaseMenu {
 		instance.gameObject.SetActive (false);
 	}
 
-	public void CreateUser(){
-		User newUser = new User (0, 0, username.text, password.text, hasAdminRights.isOn);
-		DatabaseSaver.instance.SaveUser (newUser);
-		AdminMenu.instance.Show ();
-		instance.Hide ();
+	public void CreateCategory(){
+		if (categoryNameField.text != "") {
+			Category newCategory = new Category (0, categoryNameField.text);
+			DatabaseSaver.instance.SaveCategory (newCategory);
+			AdminMenu.instance.Show ();
+			instance.Hide ();
+			categoryNameField.text = "";
+		}
 	}
-
 }

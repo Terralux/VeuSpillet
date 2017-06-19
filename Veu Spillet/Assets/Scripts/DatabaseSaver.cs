@@ -151,4 +151,18 @@ public class DatabaseSaver : MonoBehaviour {
 
 		Debug.Log (www.text);
 	}
+
+	public void SaveCategory(Category category){
+		StartCoroutine (SaveCategoryToDatabase (category));
+	}
+
+	public IEnumerator SaveCategoryToDatabase(Category category){
+		WWWForm myForm = new WWWForm();
+		myForm.AddField ("name", category.name);
+
+		WWW www = new WWW ("http://veu-spillet.dk/Prototype/saveCategory.php", myForm);
+		yield return www;
+
+		Debug.Log (www.text);
+	}
 }

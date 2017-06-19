@@ -13,6 +13,8 @@ public class DeleteFromListMenu : BaseMenu {
 
 	private int deletionIndex;
 
+	public Text errorText;
+
 	public void Awake(){
 		if (instance != null) {
 			Destroy (this);
@@ -73,7 +75,9 @@ public class DeleteFromListMenu : BaseMenu {
 		foreach (User user in SetupUsers.users) {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
 			go.GetComponentInChildren<Text> ().text = user.userName;
-			go.GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue += instance.OnClick;
+			EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
+			ebc.myIndex = count;
+			ebc.OnClickSendValue += instance.OnClick;
 			count++;
 		}
 	}
@@ -83,7 +87,9 @@ public class DeleteFromListMenu : BaseMenu {
 		foreach (Quiz quiz in SetupQuizzes.quizzes) {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
 			go.GetComponentInChildren<Text> ().text = quiz.quizName;
-			go.GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue += instance.OnClick;
+			EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
+			ebc.myIndex = count;
+			ebc.OnClickSendValue += instance.OnClick;
 			count++;
 		}
 	}
@@ -93,17 +99,26 @@ public class DeleteFromListMenu : BaseMenu {
 		foreach (Category cat in SetupCategories.categories) {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
 			go.GetComponentInChildren<Text> ().text = cat.name;
-			go.GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue += instance.OnClick;
+			EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
+			ebc.myIndex = count;
+			ebc.OnClickSendValue += instance.OnClick;
 			count++;
 		}
 	}
 
+	public void Error(){
+		errorText.gameObject.SetActive (true);
+	}
+
 	public static void Clear(){
-		foreach (Transform t in instance.contentTarget.GetComponentsInChildren<Transform>()) {
-			if (t != instance.contentTarget.transform) {
-				t.GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
-				Destroy (t.gameObject);
+		for (int i = 0; i < instance.contentTarget.transform.childCount; i++) {
+			if (instance.contentTarget.transform.GetChild (i) != instance.transform) {
+				instance.contentTarget.transform.GetChild (i).GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
+				Destroy (instance.contentTarget.transform.GetChild (i).gameObject);
 			}
 		}
+
+		DeleteFromListMenu.instance.Hide ();
+		AdminMenu.instance.Show ();
 	}
 }

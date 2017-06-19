@@ -27,6 +27,8 @@ public class SetupUsers : MonoBehaviour {
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
 
+		users.Clear ();
+
 		string dataString = ItemsData.text;
 		string[] userData = dataString.Split('|');
 
