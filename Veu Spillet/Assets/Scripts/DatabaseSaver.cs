@@ -165,4 +165,23 @@ public class DatabaseSaver : MonoBehaviour {
 
 		Debug.Log (www.text);
 	}
+
+	public void SaveQuestion(Question question){
+		StartCoroutine (SaveQuestionToDatabase (question));
+	}
+
+	public IEnumerator SaveQuestionToDatabase(Question question) {
+		WWWForm myForm = new WWWForm();
+		myForm.AddField ("question", question.question);
+		myForm.AddField ("correct", question.answers[0]);
+		myForm.AddField ("wrong1", question.answers[1]);
+		myForm.AddField ("wrong2", question.answers[2]);
+		myForm.AddField ("wrong3", question.answers[3]);
+		myForm.AddField ("quizID", question.quizID);
+
+		WWW www = new WWW ("http://veu-spillet.dk/Prototype/saveQuestion.php", myForm);
+		yield return www;
+
+		Debug.Log (www.text);
+	}
 }

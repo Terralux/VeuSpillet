@@ -48,4 +48,12 @@ public class MainMenu : BaseMenu {
 		AdminMenu.instance.Show ();
 		instance.Hide ();
 	}
+
+	public void GoToCreateQuestion(){
+		CreateQuestionMenu.instance.Show ();
+	}
+
+	public void GoToSuggestQuestion(){
+		CreateQuestionMenu.instance.Show ();
+	}
 }

@@ -20,6 +20,7 @@ public class AdminMenu : BaseMenu {
 		instance.gameObject.SetActive (true);
 		SetupUsers.instance.Reload ();
 		SetupCategories.instance.Reload ();
+		SetupQuizzes.instance.LoadAllQuizzes ();
 	}
 
 	public override void Hide ()

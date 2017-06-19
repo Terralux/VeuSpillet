@@ -32,11 +32,24 @@ namespace DatabaseClassifications{
 	}
 
 	public struct Question{
+		public int quizID;
 		public int questionID;
 		public string question;
 		public string[] answers;
 
 		public Question(int questionID, string question, string correctAnswer, string wrongAnswer1, string wrongAnswer2, string wrongAnswer3){
+			quizID = 0;
+			this.questionID = questionID;
+			this.question = question;
+			answers = new string[4];
+			answers [0] = correctAnswer;
+			answers [1] = wrongAnswer1;
+			answers [2] = wrongAnswer2;
+			answers [3] = wrongAnswer3;
+		}
+
+		public Question(int quizID, int questionID, string question, string correctAnswer, string wrongAnswer1, string wrongAnswer2, string wrongAnswer3){
+			this.quizID = quizID;
 			this.questionID = questionID;
 			this.question = question;
 			answers = new string[4];

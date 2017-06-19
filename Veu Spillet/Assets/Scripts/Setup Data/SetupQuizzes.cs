@@ -21,6 +21,11 @@ public class SetupQuizzes : MonoBehaviour {
 		StartCoroutine (Initiate (categoryID));
 	}
 
+	public void LoadAllQuizzes(){
+		quizzes.Clear ();
+		StartCoroutine (LoadAll ());
+	}
+
 	public static IEnumerator Initiate(int categoryID){
 		string URL = "http://veu-spillet.dk/Prototype/loadAllQuizzesFromCategory.php/?cid=" + categoryID;
 		WWW ItemsData = new WWW (URL);
@@ -38,6 +43,23 @@ public class SetupQuizzes : MonoBehaviour {
 		Debug.Log ("Got quizzes");
 
 		QuizMenu.InstantiateQuizButtons ();
+
+		yield return new WaitForSeconds (0);
+	}
+
+	public static IEnumerator LoadAll(){
+		string URL = "http://veu-spillet.dk/Prototype/loadAllQuizzes.php/";
+		WWW ItemsData = new WWW (URL);
+		yield return ItemsData;
+		string dataString = ItemsData.text;
+		string[] quizData = dataString.Split('|');
+
+		string[] segmentedQuizData;
+		for (int i = 0; i < quizData.Length-1; i++) {
+			segmentedQuizData = quizData [i].Split (',');
+
+			quizzes.Add (new Quiz (int.Parse (segmentedQuizData [0]), segmentedQuizData [1], int.Parse(segmentedQuizData [2])));
+		}
 
 		yield return new WaitForSeconds (0);
 	}
