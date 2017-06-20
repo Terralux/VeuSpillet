@@ -34,8 +34,6 @@ public class CreateUserMenu : BaseMenu {
 	public void CreateUser(){
 		User newUser = new User (0, 0, username.text, password.text, hasAdminRights.isOn);
 		DatabaseSaver.instance.SaveUser (newUser);
-		AdminMenu.instance.Show ();
-		instance.Hide ();
 		username.text = "";
 		password.text = "";
 	}

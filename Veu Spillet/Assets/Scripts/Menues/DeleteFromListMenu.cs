@@ -136,8 +136,5 @@ public class DeleteFromListMenu : BaseMenu {
 				Destroy (instance.contentTarget.transform.GetChild (i).gameObject);
 			}
 		}
-
-		DeleteFromListMenu.instance.Hide ();
-		AdminMenu.instance.Show ();
 	}
 }

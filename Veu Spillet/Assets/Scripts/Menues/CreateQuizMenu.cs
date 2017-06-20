@@ -56,8 +56,6 @@ public class CreateQuizMenu : BaseMenu {
 		if (category.id > 0) {
 			Quiz newQuiz = new Quiz (0, username.text, category.id);
 			DatabaseSaver.instance.SaveQuiz (newQuiz);
-			AdminMenu.instance.Show ();
-			instance.Hide ();
 		}
 	}
 

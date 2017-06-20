@@ -32,8 +32,6 @@ public class CreateCategoryMenu : BaseMenu {
 		if (categoryNameField.text != "") {
 			Category newCategory = new Category (0, categoryNameField.text);
 			DatabaseSaver.instance.SaveCategory (newCategory);
-			AdminMenu.instance.Show ();
-			instance.Hide ();
 			categoryNameField.text = "";
 		}
 	}

@@ -59,8 +59,6 @@ public class CreateQuestionMenu : BaseMenu {
 	public void CreateQuestion(){
 		Question newQuestion = new Question (quiz.quizID, 0, question.text, correctAnswer.text, wrongAnswer1.text, wrongAnswer2.text, wrongAnswer3.text);
 		DatabaseSaver.instance.SaveQuestion (newQuestion);
-		AdminMenu.instance.Show ();
-		instance.Hide ();
 	}
 
 	public static void Clear(){

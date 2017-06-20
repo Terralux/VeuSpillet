@@ -20,8 +20,8 @@ public class MainMenu : BaseMenu {
 	public override void Show ()
 	{
 		adminOptions.SetActive (DataContainer.currentLoggedUser.isAdmin);
-		BackToMenu.instance.Show();
 		instance.gameObject.SetActive (true);
+		BackToMenu.instance.Hide ();
 	}
 
 	public override void Hide ()
@@ -32,11 +32,13 @@ public class MainMenu : BaseMenu {
 	public void GoToQuizStyleSelection(){
 		QuizStyleMenu.instance.Show ();
 		instance.Hide ();
+		BackToMenu.instance.Show();
 	}
 
 	public void GoToResults(){
 		ResultsMenu.instance.Show ();
 		instance.Hide ();
+		BackToMenu.instance.Show();
 	}
 
 	public void GoToLoginMenu(){
@@ -48,13 +50,16 @@ public class MainMenu : BaseMenu {
 	public void GoToAdminMenu(){
 		AdminMenu.instance.Show ();
 		instance.Hide ();
+		BackToMenu.instance.Show();
 	}
 
 	public void GoToCreateQuestion(){
 		CreateQuestionMenu.instance.Show ();
+		BackToMenu.instance.Show();
 	}
 
 	public void GoToSuggestQuestion(){
 		CreateQuestionMenu.instance.Show ();
+		BackToMenu.instance.Show();
 	}
 }
