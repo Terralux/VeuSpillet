@@ -32,7 +32,7 @@ public class SetupQuestions : MonoBehaviour {
 
 		string[] segmentedQuestionsData;
 		for (int i = 0; i < questionData.Length-1; i++) {
-			segmentedQuestionsData = questionData [i].Split (',');
+			segmentedQuestionsData = questionData [i].Split ('¤');
 
 			questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
 		}
@@ -58,7 +58,7 @@ public class SetupQuestions : MonoBehaviour {
 
 		string[] segmentedQuestionsData;
 		for (int i = 0; i < questionData.Length-1; i++) {
-			segmentedQuestionsData = questionData [i].Split (',');
+			segmentedQuestionsData = questionData [i].Split ('¤');
 
 			questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
 		}

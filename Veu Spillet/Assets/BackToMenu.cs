@@ -7,6 +7,7 @@ public class BackToMenu : MonoBehaviour {
 	public static BackToMenu instance;
 
 	public static bool isCurrentlyInAdminSubMenu = false;
+	public GameObject feedbackPanel;
 
 	void Awake(){
 		if (instance != null) {
@@ -34,12 +35,12 @@ public class BackToMenu : MonoBehaviour {
 		CreateQuestionMenu.instance.Hide ();
 		AdminMenu.instance.Show ();
 		MainMenu.instance.Hide ();
-		isCurrentlyInAdminSubMenu = false;
 		DeleteQuestionMenu.Clear ();
 		DeleteQuestionMenu.instance.Hide ();
 	}
 
 	public void BackToMainMenu(){
+		feedbackPanel.SetActive (false);
 		InformationMenu.instance.Hide ();
 		QuizCategoryMenu.instance.Hide ();
 		QuizCategoryMenu.instance.Clear ();
@@ -59,6 +60,10 @@ public class BackToMenu : MonoBehaviour {
 		if (!isCurrentlyInAdminSubMenu) {
 			AdminMenu.instance.Hide ();
 			MainMenu.instance.Show ();
+		} else {
+			AdminMenu.instance.Show ();
+			MainMenu.instance.Hide ();
+			isCurrentlyInAdminSubMenu = false;
 		}
 	}
 }

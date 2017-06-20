@@ -18,6 +18,10 @@ public class CreateQuestionMenu : BaseMenu {
 	public static GameObject contentButton;
 	public GameObject contentTarget;
 
+	public GameObject feedbackPanel;
+
+	private int quizIndex;
+
 	void Awake(){
 		if (instance != null) {
 			Destroy (this);
@@ -42,6 +46,12 @@ public class CreateQuestionMenu : BaseMenu {
 	}
 
 	public void OnClick(int quizButton){
+		if (quizIndex >= 0) {
+			instance.contentTarget.transform.GetChild (quizIndex).GetComponent<Image> ().color = Color.white;
+		}
+		instance.contentTarget.transform.GetChild (quizButton).GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+
+		quizIndex = quizButton;
 		quiz = SetupQuizzes.quizzes [quizButton];
 	}
 
@@ -58,13 +68,15 @@ public class CreateQuestionMenu : BaseMenu {
 	}
 
 	public void CreateQuestion(){
-		Question newQuestion = new Question (quiz.quizID, 0, question.text, correctAnswer.text, wrongAnswer1.text, wrongAnswer2.text, wrongAnswer3.text);
-		DatabaseSaver.instance.SaveQuestion (newQuestion);
+		if (quiz.quizID != 0) {
+			Question newQuestion = new Question (quiz.quizID, 0, question.text, correctAnswer.text, wrongAnswer1.text, wrongAnswer2.text, wrongAnswer3.text);
+			DatabaseSaver.instance.SaveQuestion (newQuestion);
+			StartCoroutine (EnableFeedback ());
+			ClearFieldsOnly ();
+		}
 	}
 
 	public static void Clear(){
-		instance.quiz = new Quiz ();
-
 		for (int i = 0; i < instance.contentTarget.transform.childCount; i++) {
 			if (instance.contentTarget.transform.GetChild (i) != instance.transform) {
 				instance.contentTarget.transform.GetChild (i).GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
@@ -72,10 +84,26 @@ public class CreateQuestionMenu : BaseMenu {
 			}
 		}
 
+		instance.ClearFieldsOnly ();
+	}
+
+	public void ClearFieldsOnly (){
+		instance.quiz = new Quiz ();
+
+		if (instance.contentTarget.transform.childCount > quizIndex) {
+			instance.contentTarget.transform.GetChild (quizIndex).GetComponent<Image> ().color = Color.white;
+		}
+
 		instance.question.text = "";
 		instance.correctAnswer.text = "";
 		instance.wrongAnswer1.text = "";
 		instance.wrongAnswer2.text = "";
 		instance.wrongAnswer3.text = "";
+	}
+
+	private IEnumerator EnableFeedback(){
+		feedbackPanel.SetActive (true);
+		yield return new WaitForSeconds (2f);
+		feedbackPanel.SetActive (false);
 	}
 }

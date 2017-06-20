@@ -9,6 +9,8 @@ public class CreateCategoryMenu : BaseMenu {
 
 	public InputField categoryNameField;
 
+	public GameObject feedbackPanel;
+
 	void Awake(){
 		if (instance != null) {
 			Destroy (this);
@@ -34,6 +36,13 @@ public class CreateCategoryMenu : BaseMenu {
 			Category newCategory = new Category (0, categoryNameField.text);
 			DatabaseSaver.instance.SaveCategory (newCategory);
 			categoryNameField.text = "";
+			StartCoroutine (EnableFeedback());
 		}
+	}
+
+	private IEnumerator EnableFeedback(){
+		feedbackPanel.SetActive (true);
+		yield return new WaitForSeconds (2f);
+		feedbackPanel.SetActive (false);
 	}
 }

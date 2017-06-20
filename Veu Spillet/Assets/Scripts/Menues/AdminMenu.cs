@@ -31,29 +31,36 @@ public class AdminMenu : BaseMenu {
 
 	public void CreateUser(){
 		CreateUserMenu.instance.Show();
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 
 	public void CreateQuiz(){
 		CreateQuizMenu.instance.Show();
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 
 	public void CreateCategory(){
 		CreateCategoryMenu.instance.Show();
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 
 	public void DeleteUser(){
 		DeleteFromListMenu.instance.Show (0);
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 
 	public void DeleteQuiz(){
 		DeleteFromListMenu.instance.Show (1);
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 
 	public void DeleteCategory(){
 		DeleteFromListMenu.instance.Show (2);
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 
 	public void DeleteQuestion(){
 		DeleteQuestionMenu.instance.Show ();
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 }

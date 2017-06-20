@@ -43,23 +43,45 @@ public class DeleteQuestionMenu : BaseMenu {
 	}
 
 	public void OnClick(int buttonIndex){
+		if (currentButtonDeletionIndex >= 0) {
+			instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).GetComponent<Image> ().color = Color.white;
+		}
+		instance.contentTarget.transform.GetChild (buttonIndex).GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+
 		currentButtonDeletionIndex = buttonIndex;
+
 		InstantiateQuestionButtons ();
 	}
 
 	public void OnSelectedQuestion(int questionIndex){
+		if (currentButtonDeletionIndex >= 0) {
+			instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).GetComponent<Image> ().color = Color.white;
+		}
+		foreach (EmptyButtonContainer e in instance.contentTarget.transform.GetComponentsInChildren<EmptyButtonContainer>()) {
+			if (e.myIndex == questionIndex) {
+				e.GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+			}
+		}
 		deleteWarningPanel.SetActive (true);
 		currentButtonDeletionIndex = questionIndex;
 	}
 
 	public void Delete(){
 		DatabaseDeleter.instance.DeleteQuestion (SetupQuestions.questions [currentButtonDeletionIndex]);
+
+		foreach (EmptyButtonContainer e in instance.contentTarget.transform.GetComponentsInChildren<EmptyButtonContainer>()) {
+			if (e.myIndex == currentButtonDeletionIndex) {
+				e.gameObject.SetActive (false);
+			}
+		}
+
 		deleteWarningPanel.SetActive (false);
 	}
 
 	public void Return(){
-		currentButtonDeletionIndex = -1;
+		instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).GetComponent<Image> ().color = Color.white;
 		deleteWarningPanel.SetActive (false);
+		currentButtonDeletionIndex = -1;
 	}
 
 	private static void InstantiateQuizButtons(){
@@ -84,10 +106,11 @@ public class DeleteQuestionMenu : BaseMenu {
 				go.GetComponentInChildren<Text> ().text = question.question;
 				EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
 				ebc.myIndex = count;
-				ebc.OnClickSendValue += instance.OnClick;
+				ebc.OnClickSendValue += instance.OnSelectedQuestion;
 			}
 			count++;
 		}
+		instance.currentButtonDeletionIndex = 0;
 	}
 
 	public void Error(){

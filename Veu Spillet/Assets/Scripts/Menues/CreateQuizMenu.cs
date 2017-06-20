@@ -13,6 +13,10 @@ public class CreateQuizMenu : BaseMenu {
 	public static GameObject contentButton;
 	public GameObject contentTarget;
 
+	public GameObject feedbackPanel;
+
+	private int categoryIndex;
+
 	void Awake(){
 		if (instance != null) {
 			Destroy (this);
@@ -37,6 +41,12 @@ public class CreateQuizMenu : BaseMenu {
 	}
 
 	public void OnClick(int categoryIndex){
+		if (this.categoryIndex >= 0) {
+			instance.contentTarget.transform.GetChild (this.categoryIndex).GetComponent<Image> ().color = Color.white;
+		}
+		instance.contentTarget.transform.GetChild (categoryIndex).GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+
+		this.categoryIndex = categoryIndex;
 		category = SetupCategories.categories [categoryIndex];
 	}
 
@@ -57,17 +67,36 @@ public class CreateQuizMenu : BaseMenu {
 		if (category.id > 0) {
 			Quiz newQuiz = new Quiz (0, username.text, category.id);
 			DatabaseSaver.instance.SaveQuiz (newQuiz);
+			StartCoroutine (EnableFeedback());
+			ClearFieldsOnly ();
 		}
 	}
 
-	public static void Clear(){
+	public void ClearFieldsOnly (){
 		instance.category = new Category ();
+
+		if (instance.contentTarget.transform.childCount > categoryIndex && categoryIndex >= 0) {
+			instance.contentTarget.transform.GetChild (categoryIndex).GetComponent<Image> ().color = Color.white;
+		}
+
+		instance.username.text = "";
+		instance.categoryIndex = -1;
+	}
+
+	public static void Clear(){
 		for (int i = 0; i < instance.contentTarget.transform.childCount; i++) {
 			if (instance.contentTarget.transform.GetChild (i) != instance.transform) {
 				instance.contentTarget.transform.GetChild (i).GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
 				Destroy (instance.contentTarget.transform.GetChild (i).gameObject);
 			}
 		}
+		instance.ClearFieldsOnly ();
+	}
+
+	private IEnumerator EnableFeedback(){
+		feedbackPanel.SetActive (true);
+		yield return new WaitForSeconds (2f);
+		feedbackPanel.SetActive (false);
 	}
 
 }

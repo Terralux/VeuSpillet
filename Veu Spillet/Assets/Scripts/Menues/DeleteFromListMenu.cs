@@ -62,6 +62,11 @@ public class DeleteFromListMenu : BaseMenu {
 	}
 
 	public void OnClick(int buttonIndex){
+		if (currentButtonDeletionIndex >= 0) {
+			instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).GetComponent<Image> ().color = Color.white;
+		}
+		instance.contentTarget.transform.GetChild (buttonIndex).GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+
 		deleteWarningPanel.SetActive (true);
 		currentButtonDeletionIndex = buttonIndex;
 	}
@@ -78,12 +83,15 @@ public class DeleteFromListMenu : BaseMenu {
 			DatabaseDeleter.instance.DeleteCategory(SetupCategories.categories[currentButtonDeletionIndex]);
 			break;
 		}
+
+		instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).gameObject.SetActive (false);
 		deleteWarningPanel.SetActive (false);
 	}
 
 	public void Return(){
-		currentButtonDeletionIndex = -1;
 		deleteWarningPanel.SetActive (false);
+		instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+		currentButtonDeletionIndex = -1;
 	}
 
 	private static void InstantiateUserButtons(){

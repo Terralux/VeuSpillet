@@ -26,9 +26,7 @@ public class DatabaseDeleter : MonoBehaviour {
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/deleteUser.php", myForm);
 		yield return www;
 
-		if (www.text != "Error") {
-			DeleteFromListMenu.Clear ();
-		} else {
+		if (www.text == "Error") {
 			DeleteFromListMenu.instance.Error ();
 		}
 	}
@@ -44,9 +42,7 @@ public class DatabaseDeleter : MonoBehaviour {
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/deleteQuiz.php", myForm);
 		yield return www;
 
-		if (www.text != "Error") {
-			DeleteFromListMenu.Clear ();
-		} else {
+		if (www.text == "Error") {
 			DeleteFromListMenu.instance.Error ();
 		}
 	}
@@ -62,9 +58,7 @@ public class DatabaseDeleter : MonoBehaviour {
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/deleteCategory.php", myForm);
 		yield return www;
 
-		if (www.text != "Error") {
-			DeleteFromListMenu.Clear ();
-		} else {
+		if (www.text == "Error") {
 			DeleteFromListMenu.instance.Error ();
 		}
 	}
@@ -80,9 +74,7 @@ public class DatabaseDeleter : MonoBehaviour {
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/deleteQuestion.php", myForm);
 		yield return www;
 
-		if (www.text != "Error") {
-			DeleteFromListMenu.Clear ();
-		} else {
+		if (www.text == "Error") {
 			DeleteFromListMenu.instance.Error ();
 		}
 	}

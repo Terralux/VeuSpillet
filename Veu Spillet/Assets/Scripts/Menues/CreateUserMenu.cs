@@ -12,6 +12,8 @@ public class CreateUserMenu : BaseMenu {
 
 	public Toggle hasAdminRights;
 
+	public GameObject feedbackPanel;
+
 	void Awake(){
 		if (instance != null) {
 			Destroy (this);
@@ -37,6 +39,13 @@ public class CreateUserMenu : BaseMenu {
 		DatabaseSaver.instance.SaveUser (newUser);
 		username.text = "";
 		password.text = "";
+		StartCoroutine (EnableFeedback());
+	}
+
+	private IEnumerator EnableFeedback(){
+		feedbackPanel.SetActive (true);
+		yield return new WaitForSeconds (2f);
+		feedbackPanel.SetActive (false);
 	}
 
 }
