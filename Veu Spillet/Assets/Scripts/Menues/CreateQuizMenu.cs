@@ -27,6 +27,7 @@ public class CreateQuizMenu : BaseMenu {
 	{
 		instance.gameObject.SetActive (true);
 		InstantiateCategoryButtons ();
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 
 	public override void Hide ()
@@ -61,10 +62,10 @@ public class CreateQuizMenu : BaseMenu {
 
 	public static void Clear(){
 		instance.category = new Category ();
-		foreach (Transform t in instance.contentTarget.GetComponentsInChildren<Transform>()) {
-			if (t != instance.contentTarget.transform) {
-				t.GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
-				Destroy (t.gameObject);
+		for (int i = 0; i < instance.contentTarget.transform.childCount; i++) {
+			if (instance.contentTarget.transform.GetChild (i) != instance.transform) {
+				instance.contentTarget.transform.GetChild (i).GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
+				Destroy (instance.contentTarget.transform.GetChild (i).gameObject);
 			}
 		}
 	}

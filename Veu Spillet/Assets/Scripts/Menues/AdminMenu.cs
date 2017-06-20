@@ -54,6 +54,6 @@ public class AdminMenu : BaseMenu {
 	}
 
 	public void DeleteQuestion(){
-		DeleteFromListMenu.instance.Show (3);
+		DeleteQuestionMenu.instance.Show ();
 	}
 }

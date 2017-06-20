@@ -17,7 +17,6 @@ public class SetupQuestions : MonoBehaviour {
 	}
 
 	public void LoadQuestions(int quizID){
-		questions.Clear ();
 		StartCoroutine (Initiate (quizID));
 	}
 
@@ -25,6 +24,9 @@ public class SetupQuestions : MonoBehaviour {
 		string URL = "http://veu-spillet.dk/Prototype/loadAllQuestionsFromQuiz.php/?qid=" + quizID;
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
+
+		questions.Clear ();
+
 		string dataString = ItemsData.text;
 		string[] questionData = dataString.Split('|');
 
@@ -32,12 +34,8 @@ public class SetupQuestions : MonoBehaviour {
 		for (int i = 0; i < questionData.Length-1; i++) {
 			segmentedQuestionsData = questionData [i].Split (',');
 
-			Debug.Log (questionData [i]);
-
-			questions.Add (new Question (int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
+			questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
 		}
-
-		Debug.Log ("Got Questions");
 
 		QuizGameMenu.InitiateQuiz (questions.ToArray ());
 
@@ -45,7 +43,6 @@ public class SetupQuestions : MonoBehaviour {
 	}
 
 	public void LoadAllQuestions(){
-		questions.Clear ();
 		StartCoroutine (LoadQuestions ());
 	}
 
@@ -54,7 +51,7 @@ public class SetupQuestions : MonoBehaviour {
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
 
-		Debug.Log (ItemsData.text);
+		questions.Clear ();
 
 		string dataString = ItemsData.text;
 		string[] questionData = dataString.Split('|');
@@ -63,9 +60,7 @@ public class SetupQuestions : MonoBehaviour {
 		for (int i = 0; i < questionData.Length-1; i++) {
 			segmentedQuestionsData = questionData [i].Split (',');
 
-			Debug.Log (questionData [i]);
-
-			questions.Add (new Question (int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
+			questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
 		}
 
 		yield return new WaitForSeconds (0);

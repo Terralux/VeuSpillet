@@ -68,7 +68,5 @@ public class Login : MonoBehaviour {
 		} else {
 			password = "";
 		}
-
-		Debug.Log (password);
 	}
 }

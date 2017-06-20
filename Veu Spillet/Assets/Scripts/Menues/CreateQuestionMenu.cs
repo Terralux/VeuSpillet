@@ -32,6 +32,7 @@ public class CreateQuestionMenu : BaseMenu {
 	{
 		instance.gameObject.SetActive (true);
 		InstantiateQuizButtons ();
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 
 	public override void Hide ()

@@ -21,6 +21,7 @@ public class CreateCategoryMenu : BaseMenu {
 	public override void Show ()
 	{
 		instance.gameObject.SetActive (true);
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 
 	public override void Hide ()

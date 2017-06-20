@@ -17,12 +17,10 @@ public class SetupQuizzes : MonoBehaviour {
 	}
 
 	public void LoadQuizzes(int categoryID){
-		quizzes.Clear ();
 		StartCoroutine (Initiate (categoryID));
 	}
 
 	public void LoadAllQuizzes(){
-		quizzes.Clear ();
 		StartCoroutine (LoadAll ());
 	}
 
@@ -30,6 +28,9 @@ public class SetupQuizzes : MonoBehaviour {
 		string URL = "http://veu-spillet.dk/Prototype/loadAllQuizzesFromCategory.php/?cid=" + categoryID;
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
+
+		quizzes.Clear ();
+
 		string dataString = ItemsData.text;
 		string[] quizData = dataString.Split('|');
 
@@ -51,6 +52,9 @@ public class SetupQuizzes : MonoBehaviour {
 		string URL = "http://veu-spillet.dk/Prototype/loadAllQuizzes.php/";
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
+
+		quizzes.Clear ();
+
 		string dataString = ItemsData.text;
 		string[] quizData = dataString.Split('|');
 
