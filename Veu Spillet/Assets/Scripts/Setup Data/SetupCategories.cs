@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DatabaseClassifications;
 
 public class SetupCategories : MonoBehaviour {
@@ -24,6 +25,7 @@ public class SetupCategories : MonoBehaviour {
 
 	IEnumerator Initiate(){
 		string URL = "http://veu-spillet.dk/Prototype/loadAllCategories.php";
+
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
 

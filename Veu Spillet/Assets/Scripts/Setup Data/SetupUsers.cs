@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using DatabaseClassifications;
 
 public class SetupUsers : MonoBehaviour {
@@ -24,6 +25,7 @@ public class SetupUsers : MonoBehaviour {
 
 	IEnumerator Initiate(){
 		string URL = "http://veu-spillet.dk/Prototype/loadAllUsers.php";
+
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
 
