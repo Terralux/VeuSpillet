@@ -97,11 +97,13 @@ public class DeleteFromListMenu : BaseMenu {
 	private static void InstantiateUserButtons(){
 		int count = 0;
 		foreach (User user in SetupUsers.users) {
-			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
-			go.GetComponentInChildren<Text> ().text = user.userName;
-			EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
-			ebc.myIndex = count;
-			ebc.OnClickSendValue += instance.OnClick;
+			if (user.userID != 1) {
+				GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
+				go.GetComponentInChildren<Text> ().text = user.userName;
+				EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
+				ebc.myIndex = count;
+				ebc.OnClickSendValue += instance.OnClick;
+			}
 			count++;
 		}
 	}

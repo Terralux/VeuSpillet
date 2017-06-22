@@ -7,12 +7,11 @@ using DatabaseClassifications;
 public class QuizGameMenu : BaseMenu {
 
 	public Text question;
-	public Text answer1;
-	public Text answer2;
-	public Text answer3;
-	public Text answer4;
+	public Text[] answers;
 
 	public static QuizSession currentSession;
+
+	private string[] correctOrderQuestions;
 
 	public void Awake(){
 		if (instance != null) {
@@ -47,83 +46,58 @@ public class QuizGameMenu : BaseMenu {
 	}
 
 	public void SetupQuestionUI(string[] answers){
-		(instance as QuizGameMenu).answer1.text = answers [0];
-		(instance as QuizGameMenu).answer2.text = answers [1];
-		(instance as QuizGameMenu).answer3.text = answers [2];
-		(instance as QuizGameMenu).answer4.text = answers [3];
+
+		correctOrderQuestions = new string[]{ answers [0], answers [1], answers [2], answers [3] };
+
+		for (int i = 0; i < 20; i++) {
+			int rand = Random.Range (0, answers.Length);
+
+			string temp = answers [i%4];
+			answers [i%4] = answers [rand];
+			answers [rand] = temp;
+		}
+
+		for (int i = 0; i < answers.Length; i++) {
+			(instance as QuizGameMenu).answers [i].text = answers [i];
+		}
 
 		(instance as QuizGameMenu).question.text = currentSession.GetCurrentQuestion ();
 	}
 
 	public void AnsweredQuestion(int buttonIndex){
-		if (currentSession.GetCurrentAnswer () == buttonIndex) {
-			switch (buttonIndex) {
-			case 0:
-				answer1.color = Color.green;
-				break;
-			case 1:
-				answer2.color = Color.green;
-				break;
-			case 2:
-				answer3.color = Color.green;
-				break;
-			case 3:
-				answer4.color = Color.green;
-				break;
-			}
-		} else {
-			switch (buttonIndex) {
-			case 0:
-				answer1.color = Color.red;
-				break;
-			case 1:
-				answer2.color = Color.red;
-				break;
-			case 2:
-				answer3.color = Color.red;
-				break;
-			case 3:
-				answer4.color = Color.red;
-				break;
-			}
 
-			switch (currentSession.GetCurrentAnswer ()) {
-			case 0:
-				answer1.color = Color.green;
-				break;
-			case 1:
-				answer2.color = Color.green;
-				break;
-			case 2:
-				answer3.color = Color.green;
-				break;
-			case 3:
-				answer4.color = Color.green;
-				break;
+		int convertedAnswerIndex = 0;
+
+		if (answers [buttonIndex].text == correctOrderQuestions [0]) {
+			answers [buttonIndex].color = Color.green;
+		} else {
+			answers [buttonIndex].color = Color.red;
+		}
+
+		for (int i = 0; i < answers.Length; i++) {
+			if (answers[i].text == correctOrderQuestions[0]) {
+				answers [i].color = Color.green;
+			}
+			if (answers [buttonIndex].text == correctOrderQuestions [i]) {
+				convertedAnswerIndex = i;
 			}
 		}
 
-		currentSession.StoreAnswer (buttonIndex);
+		currentSession.StoreAnswer (convertedAnswerIndex);
 		StartCoroutine (WaitForNextQuestion ());
 	}
 
 	IEnumerator WaitForNextQuestion(){
-		answer1.GetComponent<Button> ().interactable = false;
-		answer2.GetComponent<Button> ().interactable = false;
-		answer3.GetComponent<Button> ().interactable = false;
-		answer4.GetComponent<Button> ().interactable = false;
+		for (int i = 0; i < answers.Length; i++) {
+			answers [i].GetComponent<Button> ().interactable = false;
+		}
 
 		yield return new WaitForSeconds (1.5f);
 
-		answer1.GetComponent<Button> ().interactable = true;
-		answer2.GetComponent<Button> ().interactable = true;
-		answer3.GetComponent<Button> ().interactable = true;
-		answer4.GetComponent<Button> ().interactable = true;
-
-		answer1.color = Color.white;
-		answer2.color = Color.white;
-		answer3.color = Color.white;
-		answer4.color = Color.white;
+		for (int i = 0; i < answers.Length; i++) {
+			answers [i].GetComponent<Button> ().interactable = true;
+			answers [i].color = Color.white;
+		}
 
 		if (currentSession.hasMoreQuestions) {
 			(instance as QuizGameMenu).SetupQuestionUI (currentSession.GetNextQuestion ());
@@ -136,9 +110,9 @@ public class QuizGameMenu : BaseMenu {
 
 	public void Clear(){
 		question.text = "";
-		answer1.text = "";
-		answer2.text = "";
-		answer3.text = "";
-		answer4.text = "";
+
+		for (int i = 0; i < answers.Length; i++) {
+			answers [i].text = "";
+		}
 	}
 }

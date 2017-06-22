@@ -22,6 +22,8 @@ public class MainMenu : BaseMenu {
 		adminOptions.SetActive (DataContainer.currentLoggedUser.isAdmin);
 		instance.gameObject.SetActive (true);
 		BackToMenu.instance.Hide ();
+		SetupQuizzes.instance.LoadAllQuizzes ();
+		SetupResults.instance.Reload ();
 	}
 
 	public override void Hide ()
