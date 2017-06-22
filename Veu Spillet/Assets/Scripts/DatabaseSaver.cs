@@ -21,10 +21,6 @@ public class DatabaseSaver : MonoBehaviour {
 
 	public IEnumerator SaveToDatabase(QuizSession currentSession){
 
-		foreach (Question q in currentSession.questions) {
-			Debug.Log (q.questionID);
-		}
-
 		// Check for other quizResults
 		// Sort the other quizResults or write new quizResults
 		WWWForm myForm = new WWWForm();
@@ -117,7 +113,6 @@ public class DatabaseSaver : MonoBehaviour {
 
 			www = new WWW ("http://veu-spillet.dk/Prototype/saveQuizResults.php", myForm);
 			yield return www;
-			Debug.Log (www.text);
 		}
 	}
 

@@ -42,10 +42,20 @@ public class SetupResults : MonoBehaviour {
 			segmentedUserData = userData [i].Split (',');
 
 			string[] answerStrings = segmentedUserData[1].Split(' ');
+			int[] answerInts = new int[answerStrings.Length];
 
+			string[] questionIDStrings = segmentedUserData [3].Split (' ');
+			int[] questionIDInts = new int[questionIDStrings.Length];
 
-			results.Add (new QuizResult (int.Parse (segmentedUserData [0]), segmentedUserData [1], segmentedUserData [2], segmentedUserData [3], "1" == segmentedUserData [4]));
+			for (int j = 0; j < answerStrings.Length - 1; j++) {
+				answerInts [j] = int.Parse (answerStrings [j]);
+				questionIDInts [j] = int.Parse (questionIDStrings [j]);
+			}
+
+			results.Add (new QuizResult (int.Parse (segmentedUserData [0]), questionIDInts, answerInts, int.Parse (segmentedUserData [2])));
 		}
+
+		Debug.Log ("Done!");
 
 		yield return new WaitForSeconds (0);
 	}

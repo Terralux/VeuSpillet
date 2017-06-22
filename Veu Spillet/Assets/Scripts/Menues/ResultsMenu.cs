@@ -59,11 +59,13 @@ public class ResultsMenu : BaseMenu {
 
 		foreach (QuizResult result in SetupResults.results) {
 			if(result.quizID == quizID) {
-				GameObject go = Instantiate (resultsButton, instance.contentTarget.transform);
-				
+								
 				for (int i = 0; i < SetupQuestions.questions.Count; i++) {
 					for(int j = 0; j < result.questionAnswers.Length; j++) {
+
 						if (SetupQuestions.questions [i].questionID == result.questionIDs[j]) {
+							GameObject go = Instantiate (resultsButton, instance.contentTarget.transform);
+
 							go.GetComponent<ResultsContainer> ().Fill (
 								SetupQuestions.questions [i].question,
 								SetupQuestions.questions [i].answers[0],
@@ -77,16 +79,16 @@ public class ResultsMenu : BaseMenu {
 	}
 
 	private IEnumerator WaitForQuestionLoading(int buttonIndex){
-		Debug.Log ("I have reached this point!");
-		yield return SetupQuestions.isReady;
-		Debug.Log ("I got this far!");
+		yield return new WaitUntil (() => SetupQuestions.isReady);
 		InstantiateResultsButtons (SetupQuizzes.quizzes [buttonIndex].quizID);
 	}
 
 	public void ClearContentOnly (){
 		for (int i = 0; i < instance.contentTarget.transform.childCount; i++) {
 			if (instance.contentTarget.transform.GetChild (i) != instance.transform) {
-				instance.contentTarget.transform.GetChild (i).GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
+				if (instance.contentTarget.transform.GetChild (i).GetComponentInChildren<EmptyButtonContainer> () != null) {
+					instance.contentTarget.transform.GetChild (i).GetComponentInChildren<EmptyButtonContainer> ().OnClickSendValue -= instance.OnClick;
+				}
 				Destroy (instance.contentTarget.transform.GetChild (i).gameObject);
 			}
 		}

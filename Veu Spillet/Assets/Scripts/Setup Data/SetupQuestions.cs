@@ -91,7 +91,6 @@ public class SetupQuestions : MonoBehaviour {
 		}
 
 		isReady = true;
-
 		yield return new WaitForSeconds (0);
 	}
 }
