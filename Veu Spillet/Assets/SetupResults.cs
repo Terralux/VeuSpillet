@@ -30,8 +30,6 @@ public class SetupResults : MonoBehaviour {
 		WWW ItemsData = new WWW (URL, myForm);
 		yield return ItemsData;
 
-		Debug.Log (ItemsData.text);
-
 		results.Clear ();
 
 		string dataString = ItemsData.text;
@@ -54,8 +52,6 @@ public class SetupResults : MonoBehaviour {
 
 			results.Add (new QuizResult (int.Parse (segmentedUserData [0]), questionIDInts, answerInts, int.Parse (segmentedUserData [2])));
 		}
-
-		Debug.Log ("Done!");
 
 		yield return new WaitForSeconds (0);
 	}
