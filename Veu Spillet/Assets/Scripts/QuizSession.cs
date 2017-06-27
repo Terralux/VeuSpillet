@@ -7,6 +7,7 @@ public class QuizSession {
 	public Category category;
 	public Quiz quiz;
 
+	public User challenger;
 	public User defender;
 
 	public Question[] questions;

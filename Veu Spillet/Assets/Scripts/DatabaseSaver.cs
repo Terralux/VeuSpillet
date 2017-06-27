@@ -16,7 +16,40 @@ public class DatabaseSaver : MonoBehaviour {
 	}
 
 	public void SaveSession(QuizSession currentSession){
-		StartCoroutine (SaveToDatabase (currentSession));
+		if(currentSession.isChallengingUser){
+			StartCoroutine (SaveChallengeToDatabase (currentSession));
+		}else{
+			StartCoroutine (SaveToDatabase (currentSession));
+		}
+	}
+
+	public IEnumerator SaveChallengeToDatabase(QuizSession currentSession){
+		
+		WWWForm myForm = new WWWForm();
+		myForm.AddField ("quizID", currentSession.quiz.quizID);
+		myForm.AddField ("challengerID", currentSession.challenger.userID);
+		myForm.AddField ("defenderID", currentSession.defender.userID);
+
+		string questionIDs = "";
+		string answers = "";
+		int count = 0;
+
+		foreach(Question q in currentSession.questions){
+			questionIDs += q.questionID + " ";
+			answers += currentSession.answers[count] + " ";
+			count++;
+		}
+
+		myForm.AddField ("questionIDs", questionIDs);
+
+		if(currentSession.challenger.userID == DataContainer.currentLoggedUser.userID){
+			myForm.AddField ("challengerAnswers", answers);
+		}else{
+			myForm.AddField ("defenderAnswers", answers);
+		}
+
+		WWW www = new WWW ("http://veu-spillet.dk/Prototype/saveBattleData.php", myForm);
+		yield return www;
 	}
 
 	public IEnumerator SaveToDatabase(QuizSession currentSession){

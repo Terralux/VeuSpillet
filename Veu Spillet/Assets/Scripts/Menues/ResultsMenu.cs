@@ -55,7 +55,6 @@ public class ResultsMenu : BaseMenu {
 
 	private static void InstantiateResultsButtons(int quizID){
 		instance.ClearContentOnly ();
-		int count = 0;
 
 		foreach (QuizResult result in SetupResults.results) {
 			if(result.quizID == quizID) {

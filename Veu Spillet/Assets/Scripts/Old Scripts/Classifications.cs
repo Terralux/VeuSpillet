@@ -22,12 +22,47 @@ namespace DatabaseClassifications{
 
 		public int stat;
 
+		public int[] questionIDs;
+		public int[] challengerAnswers;
+		public int[] defenderAnswers;
+
+		public bool isDefendersTurn;
+		public bool isCompleted;
+
 		public Battle(int battleID, int challengerID, int defenderID, int quizID, int stat){
 			this.battleID = battleID;
 			this.challengerID = challengerID;
 			this.defenderID = defenderID;
 			this.quizID = quizID;
 			this.stat = stat;
+
+			this.questionIDs = new int[0];
+			this.challengerAnswers = new int[0];
+			this.defenderAnswers = new int[0];
+			this.isDefendersTurn = false;
+			this.isCompleted = false;
+		}
+
+		public Battle(int battleID, int challengerID, int defenderID, int quizID, int[] questionIDs, int[] challengerAnswers, int[] defenderAnswers, bool isDefendersTurn){
+			this.battleID = battleID;
+			this.challengerID = challengerID;
+			this.defenderID = defenderID;
+			this.quizID = quizID;
+			this.questionIDs = questionIDs;
+			this.challengerAnswers = challengerAnswers;
+			this.defenderAnswers = defenderAnswers;
+			this.isDefendersTurn = isDefendersTurn;
+
+			bool isCompleted = true;
+			for(int i = 0; i < this.questionIDs.Length; i++){
+				if(challengerAnswers[0] != 0 || defenderAnswers[0] != 0){
+					isCompleted = false;
+				}
+			}
+
+			this.isCompleted = isCompleted;
+
+			this.stat = 0;
 		}
 	}
 

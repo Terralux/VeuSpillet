@@ -39,6 +39,8 @@ public class Login : MonoBehaviour {
 			Debug.Log ("Logged in as: " + SetupUsers.users [targetUser].userName);
 			DataContainer.currentLoggedUser = SetupUsers.users [targetUser];
 			MainMenu.instance.Show ();
+			ChallengeButton.instance.Show ();
+			ChallengeSetup.instance.Load ();
 			bruger.text = "";
 			passwordField.text = "";
 			password = "";

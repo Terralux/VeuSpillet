@@ -26,7 +26,9 @@ public class QuizStyleMenu : BaseMenu {
 	}
 
 	public void ChoseAQuizStyle(bool isChallengingUser){
-		QuizCategoryMenu.Show (new QuizSession (isChallengingUser));
+		QuizSession currentSession = new QuizSession(isChallengingUser);
+		currentSession.challenger = DataContainer.currentLoggedUser;
+		QuizCategoryMenu.Show (currentSession);
 		Hide ();
 	}
 }

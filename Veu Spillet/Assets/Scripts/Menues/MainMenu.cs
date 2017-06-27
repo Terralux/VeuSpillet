@@ -24,6 +24,7 @@ public class MainMenu : BaseMenu {
 		BackToMenu.instance.Hide ();
 		SetupQuizzes.instance.LoadAllQuizzes ();
 		SetupResults.instance.Reload ();
+		SetupQuestions.instance.LoadAllQuestions ();
 	}
 
 	public override void Hide ()
@@ -47,6 +48,7 @@ public class MainMenu : BaseMenu {
 		DataContainer.currentLoggedUser = new DatabaseClassifications.User ();
 		instance.Hide ();
 		BackToMenu.instance.Hide ();
+		ChallengeButton.instance.Hide ();
 	}
 
 	public void GoToAdminMenu(){
