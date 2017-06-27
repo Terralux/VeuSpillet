@@ -92,7 +92,9 @@ public class QuizGameMenu : BaseMenu {
 			answers [i].GetComponent<Button> ().interactable = false;
 		}
 
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (0f);
+
+		//yield return new WaitForSeconds (1.5f);
 
 		for (int i = 0; i < answers.Length; i++) {
 			answers [i].GetComponent<Button> ().interactable = true;

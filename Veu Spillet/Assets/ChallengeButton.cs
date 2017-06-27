@@ -33,5 +33,6 @@ public class ChallengeButton : BaseMenu {
 	public void GoToChallengeMenu (){
 		ChallengeMenu.instance.Show();
 		instance.Hide();
+		BackToMenu.instance.Show();
 	}
 }

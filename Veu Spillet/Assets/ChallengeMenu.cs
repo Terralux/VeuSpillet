@@ -12,6 +12,8 @@ public class ChallengeMenu : BaseMenu {
 
 	public Transform contentTarget;
 
+	private List<Battle> battlesMatchingQuizzes = new List<Battle>();
+
 	void Awake(){
 		if(instance){
 			Destroy(this);
@@ -33,12 +35,17 @@ public class ChallengeMenu : BaseMenu {
 
 	public void OnClick(int buttonIndex){
 		QuizSession battleSession = new QuizSession(true);
-		//battleSession.category = 
+		battleSession.quiz = new Quiz(battlesMatchingQuizzes[buttonIndex].quizID,"",-1);
+		battleSession.challenger = new User(battlesMatchingQuizzes[buttonIndex].challengerID,0,"","",false);
+		battleSession.defender = new User(battlesMatchingQuizzes[buttonIndex].defenderID,0,"","",false);
 
 		QuizGameMenu.Show(battleSession);
+		ChallengeMenu.instance.Hide();
 	}
 
 	private static void InstantiateBattleButtons(){
+		instance.battlesMatchingQuizzes.Clear();
+
 		List<Battle> notSignificantBattles = new List<Battle>();
 		List<Battle> significantBattles = new List<Battle>();
 
@@ -60,6 +67,8 @@ public class ChallengeMenu : BaseMenu {
 		foreach (Battle battle in totalBattles) {
 			for(int i = 0; i < SetupQuizzes.quizzes.Count; i++){
 				if(SetupQuizzes.quizzes[i].quizID == battle.quizID){
+					instance.battlesMatchingQuizzes.Add(battle);
+
 					GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
 					BattleResultPostFiller brpf = go.GetComponentInChildren<BattleResultPostFiller> ();
 
@@ -88,6 +97,15 @@ public class ChallengeMenu : BaseMenu {
 					brpf.OnClickSendValue += instance.OnClick;
 					count++;
 				}
+			}
+		}
+	}
+
+	public void Clear(){
+		for (int i = 0; i < instance.contentTarget.transform.childCount; i++) {
+			if (instance.contentTarget.transform.GetChild (i) != instance.transform) {
+				instance.contentTarget.transform.GetChild (i).GetComponentInChildren<BattleResultPostFiller> ().OnClickSendValue -= instance.OnClick;
+				Destroy (instance.contentTarget.transform.GetChild (i).gameObject);
 			}
 		}
 	}

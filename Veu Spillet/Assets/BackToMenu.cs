@@ -54,6 +54,8 @@ public class BackToMenu : MonoBehaviour {
 		QuizUserMenu.instance.Hide ();
 		QuizUserMenu.instance.Clear ();
 		ResultsMenu.instance.Hide ();
+		ChallengeMenu.instance.Hide();
+		ChallengeMenu.instance.Clear();
 
 		BackToAdminMenu ();
 

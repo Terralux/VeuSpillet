@@ -44,12 +44,16 @@ public class DatabaseSaver : MonoBehaviour {
 
 		if(currentSession.challenger.userID == DataContainer.currentLoggedUser.userID){
 			myForm.AddField ("challengerAnswers", answers);
+			myForm.AddField ("isDefendersTurn", "1");
 		}else{
 			myForm.AddField ("defenderAnswers", answers);
+			myForm.AddField ("isDefendersTurn", "0");
 		}
 
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/saveBattleData.php", myForm);
 		yield return www;
+
+		Debug.Log(www.text);
 	}
 
 	public IEnumerator SaveToDatabase(QuizSession currentSession){
