@@ -65,7 +65,12 @@ public class DeleteFromListMenu : BaseMenu {
 		if (currentButtonDeletionIndex >= 0) {
 			instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).GetComponent<Image> ().color = Color.white;
 		}
-		instance.contentTarget.transform.GetChild (buttonIndex).GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+
+		if (deletionIndex == 0) {
+			instance.contentTarget.transform.GetChild (buttonIndex - 1).GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+		} else {
+			instance.contentTarget.transform.GetChild (buttonIndex).GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+		}
 
 		deleteWarningPanel.SetActive (true);
 		currentButtonDeletionIndex = buttonIndex;
@@ -75,16 +80,18 @@ public class DeleteFromListMenu : BaseMenu {
 		switch (deletionIndex) {
 		case 0:
 			DatabaseDeleter.instance.DeleteUser(SetupUsers.users[currentButtonDeletionIndex]);
+			instance.contentTarget.transform.GetChild (currentButtonDeletionIndex - 1).gameObject.SetActive (false);
 			break;
 		case 1:
 			DatabaseDeleter.instance.DeleteQuiz(SetupQuizzes.quizzes[currentButtonDeletionIndex]);
+			instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).gameObject.SetActive (false);
 			break;
 		case 2:
 			DatabaseDeleter.instance.DeleteCategory(SetupCategories.categories[currentButtonDeletionIndex]);
+			instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).gameObject.SetActive (false);
 			break;
 		}
 
-		instance.contentTarget.transform.GetChild (currentButtonDeletionIndex).gameObject.SetActive (false);
 		deleteWarningPanel.SetActive (false);
 	}
 
