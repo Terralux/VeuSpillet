@@ -22,7 +22,7 @@ public class SetupResults : MonoBehaviour {
 	}
 
 	public static IEnumerator Initiate(){
-		string URL = "http://veu-spillet.dk/Prototype/loadAllQuizResults.php/";
+		string URL = "http://veu-spillet.dk/Prototype/loadAllQuizResultsForUser.php/";
 
 		WWWForm myForm = new WWWForm();
 		myForm.AddField ("userID", DataContainer.currentLoggedUser.userID);
