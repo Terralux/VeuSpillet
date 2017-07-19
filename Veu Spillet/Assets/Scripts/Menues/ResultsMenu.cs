@@ -68,7 +68,8 @@ public class ResultsMenu : BaseMenu {
 							go.GetComponent<ResultsContainer> ().Fill (
 								SetupQuestions.questions [i].question,
 								SetupQuestions.questions [i].answers[0],
-								SetupQuestions.questions [i].answers[result.questionAnswers[j]]
+								SetupQuestions.questions [i].answers[result.questionAnswers[j]],
+								SetupQuestions.questions [i].questionID
 							);
 						}
 					}

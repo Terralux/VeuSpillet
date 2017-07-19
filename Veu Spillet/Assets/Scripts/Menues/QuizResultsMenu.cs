@@ -31,7 +31,8 @@ public class QuizResultsMenu : BaseMenu {
 			go.GetComponent<ResultsContainer> ().Fill (
 				currentSession.questions [i].question,
 				currentSession.questions [i].answers [0],
-				currentSession.questions [i].answers [currentSession.answers [i]]
+				currentSession.questions [i].answers [currentSession.answers [i]],
+				currentSession.questions [i].questionID
 			);
 		}
 
