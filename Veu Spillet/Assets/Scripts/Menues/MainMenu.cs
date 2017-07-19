@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MainMenu : BaseMenu {
 
@@ -26,6 +26,7 @@ public class MainMenu : BaseMenu {
 		SetupQuizzes.instance.LoadAllQuizzes ();
 		SetupResults.instance.Reload ();
 		SetupQuestions.instance.LoadAllQuestions ();
+
 	}
 
 	public override void Hide ()

@@ -93,4 +93,14 @@ public class SetupQuestions : MonoBehaviour {
 		isReady = true;
 		yield return new WaitForSeconds (0);
 	}
+
+	public void ReportQuestion(int id){
+		StartCoroutine(Report(id));
+	}
+
+	public static IEnumerator Report(int questionID){
+		string URL = "http://veu-spillet.dk/Prototype/flagQuestion.php/?qid=" + questionID;
+		WWW ItemsData = new WWW (URL);
+		yield return ItemsData;
+	}
 }
