@@ -70,8 +70,10 @@ public class QuizGameMenu : BaseMenu {
 
 		if (answers [buttonIndex].text == correctOrderQuestions [0]) {
 			answers [buttonIndex].color = Color.green;
+			ClickedEventHandler.TriggerCorrect ();
 		} else {
 			answers [buttonIndex].color = Color.red;
+			ClickedEventHandler.TriggerWrong ();
 		}
 
 		for (int i = 0; i < answers.Length; i++) {
