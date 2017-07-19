@@ -205,6 +205,11 @@ public class DatabaseSaver : MonoBehaviour {
 	public IEnumerator SaveQuestionToDatabase(Question question) {
 		WWWForm myForm = new WWWForm();
 		myForm.AddField ("quizID", question.quizID);
+
+		if(question.questionID != 0){
+			myForm.AddField ("questionID", question.questionID);
+		}
+
 		myForm.AddField ("question", question.question);
 		myForm.AddField ("correct", question.answers[0]);
 		myForm.AddField ("wrong1", question.answers[1]);
