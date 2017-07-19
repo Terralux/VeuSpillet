@@ -99,7 +99,7 @@ public class SetupQuestions : MonoBehaviour {
 	}
 
 	public static IEnumerator Report(int questionID){
-		string URL = "http://veu-spillet.dk/Prototype/loadAllQuestionsFromQuiz.php/?qid=" + questionID;
+		string URL = "http://veu-spillet.dk/Prototype/flagQuestion.php/?qid=" + questionID;
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
 	}
