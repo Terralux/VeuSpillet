@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MainMenu : BaseMenu {
 
 	public GameObject adminOptions;
+	public GameObject loginScreen;
 
 	public void Awake(){
 		if (instance != null) {
@@ -51,6 +52,7 @@ public class MainMenu : BaseMenu {
 		instance.Hide ();
 		BackToMenu.instance.Hide ();
 		ChallengeButton.instance.Hide ();
+		loginScreen.SetActive (true);
 	}
 
 	public void GoToAdminMenu(){

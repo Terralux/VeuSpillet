@@ -10,6 +10,8 @@ public class Login : MonoBehaviour {
 	public InputField passwordField;
 	private string password = "";
 
+	public GameObject loginScreen;
+
 	public GameObject failedLoginPanel;
 
 	void Awake(){
@@ -41,6 +43,7 @@ public class Login : MonoBehaviour {
 			MainMenu.instance.Show ();
 			ChallengeButton.instance.Show ();
 			ChallengeSetup.instance.Load ();
+			loginScreen.SetActive (false);
 			bruger.text = "";
 			passwordField.text = "";
 			password = "";
