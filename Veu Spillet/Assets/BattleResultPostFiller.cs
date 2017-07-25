@@ -20,7 +20,6 @@ public class BattleResultPostFiller : MonoBehaviour {
 		this.question.text = quizName;
 
 		this.correct.text = totalQuestions.ToString();
-		this.correct.transform.parent.GetComponent<Image>().color = Color.green;
 
 		this.challengerAnswer.text = (challengerPercentage * 100f).ToString() + "%";
 		this.defenderAnswer.text = (defenderPercentage * 100f).ToString() + "%";
