@@ -54,17 +54,19 @@ public class BackToMenu : MonoBehaviour {
 		QuizUserMenu.instance.Hide ();
 		QuizUserMenu.instance.Clear ();
 		ResultsMenu.instance.Hide ();
-		ChallengeMenu.instance.Hide();
-		ChallengeMenu.instance.Clear();
+		ChallengeMenu.instance.Hide ();
+		ChallengeMenu.instance.Clear ();
 
 		BackToAdminMenu ();
 
 		if (!isCurrentlyInAdminSubMenu) {
 			AdminMenu.instance.Hide ();
 			MainMenu.instance.Show ();
+			ChallengeButton.instance.Show ();
 		} else {
 			AdminMenu.instance.Show ();
 			MainMenu.instance.Hide ();
+			ChallengeButton.instance.Hide ();
 			isCurrentlyInAdminSubMenu = false;
 		}
 	}

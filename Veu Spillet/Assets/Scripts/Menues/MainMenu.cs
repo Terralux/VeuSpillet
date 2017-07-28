@@ -55,6 +55,7 @@ public class MainMenu : BaseMenu {
 		AdminMenu.instance.Show ();
 		instance.Hide ();
 		BackToMenu.instance.Show();
+		ChallengeButton.instance.Hide ();
 	}
 
 	public void GoToCreateQuestion(){
