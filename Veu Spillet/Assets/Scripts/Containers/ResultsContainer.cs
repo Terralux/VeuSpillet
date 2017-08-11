@@ -11,6 +11,10 @@ public class ResultsContainer : MonoBehaviour {
 
 	private int id;
 
+	public Sprite flag;
+
+	public Button flagButton;
+
 	public void Fill(string question, string correctAnswer, string userAnswer, int questionID){
 		this.question.text = question;
 		this.correct.text = correctAnswer;
@@ -27,5 +31,8 @@ public class ResultsContainer : MonoBehaviour {
 
 	public void ReportThisQuestion(){
 		SetupQuestions.instance.ReportQuestion(id);
+		Destroy (flagButton.transform.GetChild (0).gameObject);
+		flagButton.gameObject.GetComponent<Image> ().sprite = flag;
+		Destroy (flagButton);
 	}
 }
