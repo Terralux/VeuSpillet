@@ -15,6 +15,7 @@ public class HighscoreHandler : BaseMenu {
 			instance = this;
 		}
 		highscoreFields.AddRange(transform.GetComponentsInChildren<HighscoreField>());
+		Hide();
 	}
 
 	void OnEnable(){

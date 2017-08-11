@@ -35,7 +35,10 @@ public class MainMenu : BaseMenu {
 	public override void Hide ()
 	{
 		instance.gameObject.SetActive (false);
-		HighscoreHandler.instance.Hide();
+
+		if(HighscoreHandler.instance != null){
+			HighscoreHandler.instance.Hide();
+		}
 	}
 
 	public void GoToQuizStyleSelection(){
