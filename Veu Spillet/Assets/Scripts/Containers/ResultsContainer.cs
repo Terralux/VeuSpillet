@@ -12,8 +12,10 @@ public class ResultsContainer : MonoBehaviour {
 	private int id;
 
 	public Sprite flag;
-
 	public Button flagButton;
+
+	public Text flagText;
+	private Sprite previousFlagIcon;
 
 	public void Fill(string question, string correctAnswer, string userAnswer, int questionID){
 		this.question.text = question;
@@ -30,9 +32,15 @@ public class ResultsContainer : MonoBehaviour {
 	}
 
 	public void ReportThisQuestion(){
-		SetupQuestions.instance.ReportQuestion(id);
-		Destroy (flagButton.transform.GetChild (0).gameObject);
-		flagButton.gameObject.GetComponent<Image> ().sprite = flag;
-		Destroy (flagButton);
+		if(flagButton.gameObject.GetComponent<Image> ().sprite == flag){
+			flagButton.gameObject.GetComponent<Image> ().sprite = previousFlagIcon;
+			flagText.enabled = true;
+		}else{
+			SetupQuestions.instance.ReportQuestion(id);
+
+			flagText.enabled = false;
+			previousFlagIcon = flagButton.gameObject.GetComponent<Image> ().sprite;
+			flagButton.gameObject.GetComponent<Image> ().sprite = flag;
+		}
 	}
 }

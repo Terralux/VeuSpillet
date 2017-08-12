@@ -43,4 +43,13 @@ public class SetupUsers : MonoBehaviour {
 
 		yield return new WaitForSeconds (0);
 	}
+
+	public User GetUserWithID(int id){
+		foreach(User u in users){
+			if(u.userID == id){
+				return u;
+			}
+		}
+		return new User(0,0,"Missing User","",false);
+	}
 }

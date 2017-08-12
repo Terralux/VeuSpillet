@@ -30,6 +30,7 @@ public class MainMenu : BaseMenu {
 		SetupResults.instance.Reload ();
 		SetupQuestions.instance.LoadAllQuestions ();
 		HighscoreHandler.instance.Show();
+		ChallengeButton.instance.Show();
 	}
 
 	public override void Hide ()
@@ -38,6 +39,9 @@ public class MainMenu : BaseMenu {
 
 		if(HighscoreHandler.instance != null){
 			HighscoreHandler.instance.Hide();
+		}
+		if(ChallengeButton.instance != null){
+			ChallengeButton.instance.Hide();
 		}
 	}
 

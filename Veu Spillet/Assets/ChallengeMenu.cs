@@ -89,7 +89,10 @@ public class ChallengeMenu : BaseMenu {
 						}
 					}
 
-					brpf.Fill(SetupQuizzes.quizzes[i].quizName, 
+					string opponentName = SetupUsers.instance.GetUserWithID(battle.challengerID == DataContainer.currentLoggedUser.userID ? battle.defenderID : battle.challengerID).userName;
+
+					brpf.Fill(opponentName,
+						SetupQuizzes.quizzes[i].quizName, 
 						battle.questionIDs.Length, 
 						(float)Math.Round(((float)correctAnswersCha/(float)battle.questionIDs.Length), 2), 
 						(float)Math.Round(((float)correctAnswersDef/(float)battle.questionIDs.Length),2));

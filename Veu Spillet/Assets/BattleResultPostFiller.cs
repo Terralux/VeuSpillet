@@ -8,6 +8,7 @@ public class BattleResultPostFiller : MonoBehaviour {
 	public delegate void VoidEvent(int value);
 	public VoidEvent OnClickSendValue;
 
+	public Text username;
 	public Text question;
 	public Text correct;
 	public Text challengerAnswer;
@@ -16,7 +17,8 @@ public class BattleResultPostFiller : MonoBehaviour {
 	[HideInInspector]
 	public int myIndex;
 
-	public void Fill(string quizName, int totalQuestions, float challengerPercentage, float defenderPercentage){
+	public void Fill(string username, string quizName, int totalQuestions, float challengerPercentage, float defenderPercentage){
+		this.username.text = username;
 		this.question.text = quizName;
 
 		this.correct.text = totalQuestions.ToString();
