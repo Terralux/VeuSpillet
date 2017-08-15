@@ -5,7 +5,7 @@ using System;
 
 public class EmailHandler : MonoBehaviour {
 
-	private static EmailHandler instance;
+	public static EmailHandler instance;
 
 	void Awake(){
 		if(instance){

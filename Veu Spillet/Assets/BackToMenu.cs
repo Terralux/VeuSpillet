@@ -37,6 +37,7 @@ public class BackToMenu : MonoBehaviour {
 		MainMenu.instance.Hide ();
 		DeleteQuestionMenu.Clear ();
 		DeleteQuestionMenu.instance.Hide ();
+		ChangeQuestionMenu.instance.Hide ();
 	}
 
 	public void BackToMainMenu(){
@@ -56,6 +57,7 @@ public class BackToMenu : MonoBehaviour {
 		ResultsMenu.instance.Hide ();
 		ChallengeMenu.instance.Hide ();
 		ChallengeMenu.instance.Clear ();
+		EmailUIHandler.instance.Hide ();
 
 		BackToAdminMenu ();
 

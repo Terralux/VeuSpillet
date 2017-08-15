@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MainMenu : BaseMenu {
 
 	public GameObject adminOptions;
+	public GameObject inviteOptions;
 	public GameObject loginScreen;
 
 	public void Awake(){
@@ -22,17 +23,19 @@ public class MainMenu : BaseMenu {
 	public override void Show ()
 	{
 		adminOptions.SetActive (DataContainer.currentLoggedUser.isAdmin);
+		inviteOptions.SetActive (DataContainer.currentLoggedUser.isAdmin);
 		instance.gameObject.SetActive (true);
 		BackToMenu.instance.Hide ();
 		SetupQuizzes.instance.LoadAllQuizzes ();
 		SetupResults.instance.Reload ();
 		SetupQuestions.instance.LoadAllQuestions ();
-
+		HighscoreHandler.instance.Show();
 	}
 
 	public override void Hide ()
 	{
 		instance.gameObject.SetActive (false);
+		HighscoreHandler.instance.Hide();
 	}
 
 	public void GoToQuizStyleSelection(){
@@ -69,6 +72,11 @@ public class MainMenu : BaseMenu {
 
 	public void GoToSuggestQuestion(){
 		CreateQuestionMenu.instance.Show ();
+		BackToMenu.instance.Show();
+	}
+
+	public void GoToInvite(){
+		EmailUIHandler.instance.Show();
 		BackToMenu.instance.Show();
 	}
 }

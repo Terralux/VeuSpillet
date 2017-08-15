@@ -6,6 +6,7 @@ using DatabaseClassifications;
 public class SetupQuestions : MonoBehaviour {
 
 	public static List<Question> questions = new List<Question>();
+	public static List<int> flaggedQuestionIDs = new List<int>();
 	public static SetupQuestions instance;
 
 	public static bool isReady = false;
@@ -101,6 +102,29 @@ public class SetupQuestions : MonoBehaviour {
 	public static IEnumerator Report(int questionID){
 		string URL = "http://veu-spillet.dk/Prototype/flagQuestion.php/?qid=" + questionID;
 		WWW ItemsData = new WWW (URL);
+		Debug.Log("Tried to flag!");
 		yield return ItemsData;
+	}
+
+	public void LoadReportedQuestionIDs(){
+		StartCoroutine(LoadFlaggedQuestionIDs());
+	}
+
+	public static IEnumerator LoadFlaggedQuestionIDs(){
+		string URL = "http://veu-spillet.dk/Prototype/loadAllFlaggedQuestions.php/";
+		WWW ItemsData = new WWW (URL);
+		yield return ItemsData;
+
+		flaggedQuestionIDs.Clear ();
+
+		string dataString = ItemsData.text;
+		string[] questionData = dataString.Split('|');
+
+		for (int i = 0; i < questionData.Length - 1; i++) {
+			flaggedQuestionIDs.Add (int.Parse(questionData[i]));
+		}
+
+		isReady = true;
+		yield return new WaitForSeconds (0);
 	}
 }

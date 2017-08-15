@@ -22,6 +22,7 @@ public class AdminMenu : BaseMenu {
 		SetupCategories.instance.Reload ();
 		SetupQuizzes.instance.LoadAllQuizzes ();
 		SetupQuestions.instance.LoadAllQuestions ();
+		SetupQuestions.instance.LoadReportedQuestionIDs ();
 	}
 
 	public override void Hide ()
@@ -61,6 +62,11 @@ public class AdminMenu : BaseMenu {
 
 	public void DeleteQuestion(){
 		DeleteQuestionMenu.instance.Show ();
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
+	}
+
+	public void ChangeQuestion(){
+		ChangeQuestionMenu.instance.Show();
 		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
 }

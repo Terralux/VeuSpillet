@@ -90,8 +90,8 @@ public class UpdateHighscores : MonoBehaviour {
 		WWW ItemsData = new WWW (URL, form);
 		yield return ItemsData;
 		Debug.Log(ItemsData.text);
-		//yield return new WaitForSeconds(180f);
-		//WaitForQuizResults();
+		yield return new WaitForSeconds(180f);
+		WaitForQuizResults();
 	}
 
 	public void Exchange (int m, int n)
