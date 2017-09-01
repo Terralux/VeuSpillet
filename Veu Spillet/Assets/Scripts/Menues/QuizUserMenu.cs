@@ -40,6 +40,7 @@ public class QuizUserMenu : BaseMenu {
 	}
 
 	public void ChoseADefender(User user){
+		Debug.Log(user.userID + " is my user ID");
 		currentSession.defender = user;
 		QuizGameMenu.Show (currentSession);
 		Clear ();

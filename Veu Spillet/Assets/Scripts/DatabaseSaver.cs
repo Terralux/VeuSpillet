@@ -24,7 +24,9 @@ public class DatabaseSaver : MonoBehaviour {
 	}
 
 	public IEnumerator SaveChallengeToDatabase(QuizSession currentSession){
-		
+		Debug.Log(currentSession.defender.userID + " My def id again!");
+		Debug.Log(currentSession.challenger.userID + " My chal id again!");
+
 		WWWForm myForm = new WWWForm();
 		myForm.AddField ("quizID", currentSession.quiz.quizID);
 		myForm.AddField ("challengerID", currentSession.challenger.userID);
@@ -57,6 +59,8 @@ public class DatabaseSaver : MonoBehaviour {
 	}
 
 	public IEnumerator SaveToDatabase(QuizSession currentSession){
+		Debug.Log(currentSession.defender.userID + " My def id again!");
+		Debug.Log(currentSession.challenger.userID + " My chal id again!");
 
 		// Check for other quizResults
 		// Sort the other quizResults or write new quizResults

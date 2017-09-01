@@ -40,21 +40,27 @@ public class ChallengeSetup : MonoBehaviour {
 			segmentedUserData = userData [i].Split (',');
 
 			string[] questionIDStrings = segmentedUserData [4].Split (' ');
-			int[] questionIDInts = new int[questionIDStrings.Length];
+			int[] questionIDInts = new int[questionIDStrings.Length - 1];
 
 			string[] chaAnswerStrings = segmentedUserData[5].Split(' ');
-			int[] chaAnswerInts = new int[chaAnswerStrings.Length];
+			int[] chaAnswerInts = new int[chaAnswerStrings.Length - 1];
 
 			string[] defAnswerStrings = segmentedUserData[6].Split(' ');
-			int[] defAnswerInts = new int[questionIDStrings.Length];
+			int[] defAnswerInts = new int[questionIDStrings.Length - 1];
+
+			int totalAnswers = segmentedUserData[6].Trim().Length;
 
 			for (int j = 0; j < questionIDStrings.Length - 1; j++) {
 				questionIDInts [j] = int.Parse (questionIDStrings [j]);
 				chaAnswerInts [j] = int.Parse (chaAnswerStrings [j]);
 
-				if(j < defAnswerStrings.Length){
-					if(int.TryParse (defAnswerStrings [j], out defAnswerInts[j])){
-						defAnswerInts [j] = int.Parse (defAnswerStrings [j]);
+				if(totalAnswers > 0){
+					if(j < defAnswerStrings.Length){
+						if(int.TryParse (defAnswerStrings [j], out defAnswerInts[j])){
+							defAnswerInts [j] = int.Parse (defAnswerStrings [j]);
+						}else{
+							defAnswerInts [j] = -1;
+						}
 					}else{
 						defAnswerInts [j] = -1;
 					}
