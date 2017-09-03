@@ -13,12 +13,18 @@ public class QuizGameMenu : BaseMenu {
 
 	private string[] correctOrderQuestions;
 
+	public Image timerImage;
+	private RectTransform timerRectTransform;
+	private float timerScaleMax;
+
 	public void Awake(){
 		if (instance != null) {
 			Destroy (this);
 		} else {
 			instance = this;
 		}
+		timerRectTransform = timerImage.gameObject.GetComponent<RectTransform>();
+		timerScaleMax = timerRectTransform.sizeDelta.x;
 		Hide ();
 	}
 
@@ -33,6 +39,7 @@ public class QuizGameMenu : BaseMenu {
 	public override void Show ()
 	{
 		instance.gameObject.SetActive (true);
+		timerRectTransform.sizeDelta = new Vector2(timerScaleMax, timerRectTransform.sizeDelta.y);
 	}
 
 	public override void Hide ()
@@ -46,6 +53,7 @@ public class QuizGameMenu : BaseMenu {
 	}
 
 	public void SetupQuestionUI(string[] answers){
+		//timerRectTransform.sizeDelta = new Vector2(timerScaleMax, timerRectTransform.sizeDelta.y);
 
 		correctOrderQuestions = new string[]{ answers [0], answers [1], answers [2], answers [3] };
 
@@ -62,30 +70,60 @@ public class QuizGameMenu : BaseMenu {
 		}
 
 		(instance as QuizGameMenu).question.text = currentSession.GetCurrentQuestion ();
+
+		StartCoroutine(WaitForTimeOut(0f));
+	}
+
+	IEnumerator WaitForTimeOut(float timer){
+		yield return new WaitForSeconds(0.02f);
+		timer += 0.02f;
+
+		float fraction = (30f - timer) / 30f;
+
+		if(timer ==  30f){
+			timerRectTransform.sizeDelta = new Vector2(0f, timerRectTransform.sizeDelta.y);
+		}else{
+			timerRectTransform.sizeDelta = new Vector2(fraction * timerScaleMax, timerRectTransform.sizeDelta.y);
+		}
+
+		timerImage.color = Color.Lerp(new Color(0f,1f,0f,0.5f), new Color(1f,0f,0f,0.5f), 1 - fraction);
+
+		if(timer < 30f){
+			StartCoroutine(WaitForTimeOut(timer));
+		}else{
+			AnsweredQuestion(-1);
+		}
 	}
 
 	public void AnsweredQuestion(int buttonIndex){
+		StopAllCoroutines();
 
 		int convertedAnswerIndex = 0;
 
-		if (answers [buttonIndex].text == correctOrderQuestions [0]) {
-			answers [buttonIndex].color = Color.green;
-			ClickedEventHandler.TriggerCorrect ();
-		} else {
-			answers [buttonIndex].color = Color.red;
+		if(buttonIndex >= 0){
+			if (answers [buttonIndex].text == correctOrderQuestions [0]) {
+				answers [buttonIndex].color = Color.green;
+				ClickedEventHandler.TriggerCorrect ();
+			} else {
+				answers [buttonIndex].color = Color.red;
+				ClickedEventHandler.TriggerWrong ();
+			}
+
+			for (int i = 0; i < answers.Length; i++) {
+				if (answers [i].text == correctOrderQuestions[0]) {
+					answers [i].color = Color.green;
+				}
+				if (answers [buttonIndex].text == correctOrderQuestions [i]) {
+					convertedAnswerIndex = i;
+				}
+			}
+
+			currentSession.StoreAnswer (convertedAnswerIndex);
+		}else{
 			ClickedEventHandler.TriggerWrong ();
+			currentSession.StoreAnswer (-1);
 		}
 
-		for (int i = 0; i < answers.Length; i++) {
-			if (answers[i].text == correctOrderQuestions[0]) {
-				answers [i].color = Color.green;
-			}
-			if (answers [buttonIndex].text == correctOrderQuestions [i]) {
-				convertedAnswerIndex = i;
-			}
-		}
-
-		currentSession.StoreAnswer (convertedAnswerIndex);
 		StartCoroutine (WaitForNextQuestion ());
 	}
 

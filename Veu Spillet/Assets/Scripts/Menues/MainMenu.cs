@@ -31,6 +31,7 @@ public class MainMenu : BaseMenu {
 		SetupQuestions.instance.LoadAllQuestions ();
 		HighscoreHandler.instance.Show();
 		ChallengeButton.instance.Show();
+		ChallengeSetup.instance.Load();
 	}
 
 	public override void Hide ()

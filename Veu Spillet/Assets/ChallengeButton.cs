@@ -19,6 +19,7 @@ public class ChallengeButton : BaseMenu {
 	}
 
 	public override void Show (){
+		HighscoreHandler.instance.Hide();
 		gameObject.SetActive(true);
 	}
 

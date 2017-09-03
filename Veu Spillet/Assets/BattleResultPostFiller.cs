@@ -17,7 +17,7 @@ public class BattleResultPostFiller : MonoBehaviour {
 	[HideInInspector]
 	public int myIndex;
 
-	public void Fill(string username, string quizName, int totalQuestions, float challengerPercentage, float defenderPercentage){
+	public void Fill(string username, string quizName, int totalQuestions, float challengerPercentage, float defenderPercentage, bool isMyTurn){
 		this.username.text = username;
 		this.question.text = quizName;
 
@@ -36,6 +36,12 @@ public class BattleResultPostFiller : MonoBehaviour {
 			this.defenderAnswer.transform.parent.GetComponent<Image>().color = Color.Lerp(Color.red, Color.yellow, defenderPercentage * 2f);
 		}else{
 			this.defenderAnswer.transform.parent.GetComponent<Image>().color = Color.Lerp(Color.yellow, Color.green, (defenderPercentage * 2) - 1);
+		}
+
+		if(!isMyTurn){
+			foreach(Image i in GetComponentsInChildren<Image>()){
+				i.color = new Color(i.color.r, i.color.g, i.color.b, 0.3f);
+			}
 		}
 	}
 

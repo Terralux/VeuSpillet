@@ -78,8 +78,7 @@ public class ChallengeMenu : BaseMenu {
 
 					for(int j = 0; j < battle.questionIDs.Length; j++){
 						if(battle.challengerAnswers.Length > j){
-							Debug.Log(battle.challengerAnswers[j]);
-
+							
 							if(battle.challengerAnswers[j] == 0){
 								correctAnswersCha++;
 							}
@@ -97,7 +96,9 @@ public class ChallengeMenu : BaseMenu {
 						SetupQuizzes.quizzes[i].quizName, 
 						battle.questionIDs.Length, 
 						(float)Math.Round(((float)correctAnswersCha/(float)battle.questionIDs.Length), 2), 
-						(float)Math.Round(((float)correctAnswersDef/(float)battle.questionIDs.Length), 2));
+						(float)Math.Round(((float)correctAnswersDef/(float)battle.questionIDs.Length), 2), 
+						(battle.isDefendersTurn && battle.defenderID == DataContainer.currentLoggedUser.userID) || 
+						(!battle.isDefendersTurn && battle.challengerID == DataContainer.currentLoggedUser.userID));
 					brpf.myIndex = count;
 					brpf.OnClickSendValue += instance.OnClick;
 					count++;

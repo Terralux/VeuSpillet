@@ -42,7 +42,6 @@ public class Login : MonoBehaviour {
 			DataContainer.currentLoggedUser = SetupUsers.users [targetUser];
 			MainMenu.instance.Show ();
 			ChallengeButton.instance.Show ();
-			ChallengeSetup.instance.Load ();
 			loginScreen.SetActive (false);
 			bruger.text = "";
 			passwordField.text = "";
