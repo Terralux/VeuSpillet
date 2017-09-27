@@ -42,7 +42,6 @@ public class BackToMenu : MonoBehaviour {
 
 	public void BackToMainMenu(){
 		feedbackPanel.SetActive (false);
-		InformationMenu.instance.Hide ();
 		QuizCategoryMenu.instance.Hide ();
 		QuizCategoryMenu.instance.Clear ();
 		QuizGameMenu.instance.Hide ();

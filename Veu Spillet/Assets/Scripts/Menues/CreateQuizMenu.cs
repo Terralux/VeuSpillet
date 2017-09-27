@@ -23,7 +23,11 @@ public class CreateQuizMenu : BaseMenu {
 		} else {
 			instance = this;
 		}
-		contentButton = Resources.Load ("Empty Button") as GameObject;
+		if (Application.isMobilePlatform) {
+			contentButton = Resources.Load ("Empty Button Mobile") as GameObject;
+		} else {
+			contentButton = Resources.Load ("Empty Button") as GameObject;
+		}
 		Hide ();
 	}
 

@@ -41,7 +41,6 @@ public class Login : MonoBehaviour {
 			Debug.Log ("Logged in as: " + SetupUsers.users [targetUser].userName);
 			DataContainer.currentLoggedUser = SetupUsers.users [targetUser];
 			MainMenu.instance.Show ();
-			ChallengeButton.instance.Show ();
 			loginScreen.SetActive (false);
 			bruger.text = "";
 			passwordField.text = "";
@@ -72,5 +71,9 @@ public class Login : MonoBehaviour {
 		} else {
 			password = "";
 		}
+	}
+
+	public void QuitApplication(){
+		Application.Quit ();
 	}
 }

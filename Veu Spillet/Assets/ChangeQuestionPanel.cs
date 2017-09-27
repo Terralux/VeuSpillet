@@ -22,7 +22,11 @@ public class ChangeQuestionPanel : MonoBehaviour {
 	private static Question selectedQuestion;
 
 	void Awake(){
-		contentButton = Resources.Load ("Empty Button") as GameObject;
+		if (Application.isMobilePlatform) {
+			contentButton = Resources.Load ("Battle Result Post Mobile") as GameObject;
+		} else {
+			contentButton = Resources.Load ("Battle Result Post") as GameObject;
+		}
 	}
 
 	public void Init (Question q){

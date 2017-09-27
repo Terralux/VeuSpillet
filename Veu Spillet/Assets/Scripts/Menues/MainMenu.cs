@@ -29,6 +29,8 @@ public class MainMenu : BaseMenu {
 		SetupQuizzes.instance.LoadAllQuizzes ();
 		SetupResults.instance.Reload ();
 		SetupQuestions.instance.LoadAllQuestions ();
+
+		Debug.Log ("Show me!");
 		HighscoreHandler.instance.Show();
 		ChallengeButton.instance.Show();
 		ChallengeSetup.instance.Load();

@@ -19,7 +19,6 @@ public class ChallengeButton : BaseMenu {
 	}
 
 	public override void Show (){
-		HighscoreHandler.instance.Hide();
 		gameObject.SetActive(true);
 	}
 
@@ -35,5 +34,6 @@ public class ChallengeButton : BaseMenu {
 		ChallengeMenu.instance.Show();
 		instance.Hide();
 		BackToMenu.instance.Show();
+		HighscoreHandler.instance.Hide();
 	}
 }

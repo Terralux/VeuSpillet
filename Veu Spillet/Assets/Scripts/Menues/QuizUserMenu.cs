@@ -16,7 +16,11 @@ public class QuizUserMenu : BaseMenu {
 		} else {
 			instance = this;
 		}
-		contentButton = Resources.Load ("User Button") as GameObject;
+		if (Application.isMobilePlatform) {
+			contentButton = Resources.Load ("User Button Mobile") as GameObject;
+		} else {
+			contentButton = Resources.Load ("User Button") as GameObject;
+		}
 		Hide ();
 	}
 

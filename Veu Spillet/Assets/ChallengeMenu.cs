@@ -20,7 +20,11 @@ public class ChallengeMenu : BaseMenu {
 		}else{
 			instance = this;
 		}
-		contentButton = Resources.Load ("Battle Result Post") as GameObject;
+		if (Application.isMobilePlatform) {
+			contentButton = Resources.Load ("Battle Result Post Mobile") as GameObject;
+		} else {
+			contentButton = Resources.Load ("Battle Result Post") as GameObject;
+		}
 		Hide();
 	}
 

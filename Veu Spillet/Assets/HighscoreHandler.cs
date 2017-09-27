@@ -9,6 +9,8 @@ public class HighscoreHandler : BaseMenu {
 	List<HighscoreField> highscoreFields = new List<HighscoreField>();
 
 	void Awake(){
+		Debug.Log ("I woke up!");
+
 		if(instance) {
 			Destroy(this);
 		}else{
@@ -39,13 +41,11 @@ public class HighscoreHandler : BaseMenu {
 		yield return new WaitForSeconds (0);
 	}
 
-	public override void Show ()
-	{
-		instance.gameObject.SetActive(true);
+	public override void Show (){
+		instance.transform.parent.gameObject.SetActive(true);
 	}
 
-	public override void Hide ()
-	{
-		instance.gameObject.SetActive(false);
+	public override void Hide (){
+		instance.transform.parent.gameObject.SetActive(false);
 	}
 }
