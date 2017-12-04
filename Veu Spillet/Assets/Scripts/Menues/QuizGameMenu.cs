@@ -32,7 +32,11 @@ public class QuizGameMenu : BaseMenu {
 
 	public static void Show (QuizSession currentSession){
 		QuizGameMenu.currentSession = currentSession;
-		SetupQuestions.instance.LoadQuestions (currentSession.quiz.quizID);
+		if (currentSession.category.name != null) {
+			SetupQuestions.instance.LoadQuestions (currentSession.quiz.quizID);
+		} else {
+			SetupQuestions.instance.LoadQuestions (-1);
+		}
 		instance.Show ();
 	}
 

@@ -53,7 +53,7 @@ public class CreateQuestionMenu : BaseMenu {
 		if (quizIndex >= 0) {
 			instance.contentTarget.transform.GetChild (quizIndex).GetComponent<Image> ().color = Color.white;
 		}
-		instance.contentTarget.transform.GetChild (quizButton).GetComponent<Image> ().color = new Color (1f, 0.7f, 0f, 1f);
+		instance.contentTarget.transform.GetChild (quizButton).GetComponent<Image> ().color = new Color (1f, 0.7f, 1f, 1f);
 
 		quizIndex = quizButton;
 		quiz = SetupQuizzes.quizzes [quizButton];

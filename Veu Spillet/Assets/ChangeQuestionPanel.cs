@@ -23,9 +23,9 @@ public class ChangeQuestionPanel : MonoBehaviour {
 
 	void Awake(){
 		if (Application.isMobilePlatform) {
-			contentButton = Resources.Load ("Battle Result Post Mobile") as GameObject;
+			contentButton = Resources.Load ("Empty Button Mobile") as GameObject;
 		} else {
-			contentButton = Resources.Load ("Battle Result Post") as GameObject;
+			contentButton = Resources.Load ("Empty Button") as GameObject;
 		}
 	}
 

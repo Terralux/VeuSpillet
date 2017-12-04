@@ -36,7 +36,8 @@ public class ResultsContainer : MonoBehaviour {
 			flagButton.gameObject.GetComponent<Image> ().sprite = previousFlagIcon;
 			flagText.enabled = true;
 		}else{
-			SetupQuestions.instance.ReportQuestion(id);
+			FlagQuestionMenu.questionID = id;
+			FlagQuestionMenu.instance.Show ();
 
 			flagText.enabled = false;
 			previousFlagIcon = flagButton.gameObject.GetComponent<Image> ().sprite;

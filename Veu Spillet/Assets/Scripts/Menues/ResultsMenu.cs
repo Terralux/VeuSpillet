@@ -6,6 +6,8 @@ using DatabaseClassifications;
 
 public class ResultsMenu : BaseMenu {
 
+	public static ResultsMenu instance;
+
 	public static GameObject contentButton;
 	public GameObject contentTarget;
 	public static GameObject resultsButton;
@@ -16,6 +18,7 @@ public class ResultsMenu : BaseMenu {
 		} else {
 			instance = this;
 		}
+
 		if (Application.isMobilePlatform) {
 			contentButton = Resources.Load ("Empty Button Mobile") as GameObject;
 			resultsButton = Resources.Load ("Results Post Mobile") as GameObject;
@@ -23,10 +26,9 @@ public class ResultsMenu : BaseMenu {
 			contentButton = Resources.Load ("Empty Button") as GameObject;
 			resultsButton = Resources.Load ("Results Post") as GameObject;
 		}
+
 		Hide ();
 	}
-
-	public static ResultsMenu instance;
 
 	public override void Show ()
 	{
@@ -41,17 +43,30 @@ public class ResultsMenu : BaseMenu {
 	}
 
 	public void OnClick(int buttonIndex){
-		SetupQuestions.instance.LoadQuestionWithQuizID (SetupQuizzes.quizzes [buttonIndex].quizID);
-		StartCoroutine (WaitForQuestionLoading (buttonIndex));
+		if (buttonIndex != 0) {
+			SetupQuestions.instance.LoadQuestionWithQuizID (SetupQuizzes.quizzes [buttonIndex - 1].quizID);
+			StartCoroutine (WaitForQuestionLoading (buttonIndex));
+		} else {
+			SetupQuestions.instance.LoadAllQuestionsForMixedQuiz ();
+			StartCoroutine (WaitForQuestionLoading (buttonIndex));
+		}
 	}
 
 	private static void InstantiateQuizButtons(){
 		instance.ClearContentOnly ();
 		int count = 0;
+
+		GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
+		go.GetComponentInChildren<Text> ().text = "Blandet";
+		EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
+		ebc.myIndex = count;
+		ebc.OnClickSendValue += instance.OnClick;
+		count++;
+
 		foreach (Quiz quiz in SetupQuizzes.quizzes) {
-			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
+			go = Instantiate (contentButton, instance.contentTarget.transform);
 			go.GetComponentInChildren<Text> ().text = quiz.quizName;
-			EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
+			ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
 			ebc.myIndex = count;
 			ebc.OnClickSendValue += instance.OnClick;
 			count++;
@@ -83,9 +98,28 @@ public class ResultsMenu : BaseMenu {
 		}
 	}
 
+	private static void InstantiateMixedResultsButtons(){
+		instance.ClearContentOnly ();
+
+		for (int i = 0; i < SetupQuestions.questions.Count; i++) {
+			GameObject go = Instantiate (resultsButton, instance.contentTarget.transform);
+
+			go.GetComponent<ResultsContainer> ().Fill (
+				SetupQuestions.questions [i].question,
+				SetupQuestions.questions [i].answers [0],
+				(SetupQuestions.answers [i] >= 0 ? SetupQuestions.questions [i].answers [SetupQuestions.answers [i]] : ""),
+				SetupQuestions.questions [i].questionID
+			);
+		}
+	}
+
 	private IEnumerator WaitForQuestionLoading(int buttonIndex){
 		yield return new WaitUntil (() => SetupQuestions.isReady);
-		InstantiateResultsButtons (SetupQuizzes.quizzes [buttonIndex].quizID);
+		if (buttonIndex != 0) {
+			InstantiateResultsButtons (SetupQuizzes.quizzes [buttonIndex].quizID);
+		} else {
+			InstantiateMixedResultsButtons ();
+		}
 	}
 
 	public void ClearContentOnly (){

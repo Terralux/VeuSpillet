@@ -9,6 +9,7 @@ public class ChangeQuestionMenu : BaseMenu {
 	public static ChangeQuestionMenu instance;
 
 	public static GameObject contentButton;
+	public static GameObject flagButton;
 	public GameObject contentTarget;
 
 	private int currentButtonDeletionIndex = -1;
@@ -27,8 +28,10 @@ public class ChangeQuestionMenu : BaseMenu {
 		}
 		if (Application.isMobilePlatform) {
 			contentButton = Resources.Load ("Empty Button Mobile") as GameObject;
+			flagButton = Resources.Load ("Flagged Question Button Mobile") as GameObject;
 		} else {
 			contentButton = Resources.Load ("Empty Button") as GameObject;
+			flagButton = Resources.Load ("Flagged Question Button") as GameObject;
 		}
 		Hide ();
 	}
@@ -87,7 +90,7 @@ public class ChangeQuestionMenu : BaseMenu {
 
 		if(isCurrentlyInFlaggedQuestions){
 			foreach(Question q in SetupQuestions.questions){
-				if(q.questionID == SetupQuestions.flaggedQuestionIDs[questionIndex]){
+				if(q.questionID == SetupQuestions.flaggedQuestionIDs[questionIndex].questionID){
 					changeQuestionPanel.Init(q);
 				}
 			}
@@ -137,14 +140,14 @@ public class ChangeQuestionMenu : BaseMenu {
 	private static void InstantiateFlaggedQuestionButtons(){
 		instance.ClearContentOnly ();
 		int count = 0;
-		foreach (int i in SetupQuestions.flaggedQuestionIDs) {
+		foreach (FlaggedQuestion fq in SetupQuestions.flaggedQuestionIDs) {
 			foreach(Question q in SetupQuestions.questions){
-				if(q.questionID == i){
-					GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
-					go.GetComponentInChildren<Text> ().text = q.question;
-					EmptyButtonContainer ebc = go.GetComponentInChildren<EmptyButtonContainer> ();
-					ebc.myIndex = count;
-					ebc.OnClickSendValue += instance.OnSelectedQuestion;
+				if(q.questionID == fq.questionID){
+					GameObject go = Instantiate (flagButton, instance.contentTarget.transform);
+					FlaggedQuestionContainer fqc = go.GetComponentInChildren<FlaggedQuestionContainer> ();
+					fqc.myIndex = count;
+					fqc.OnClickSendValue += instance.OnSelectedQuestion;
+					fqc.Init (q.question, fq.username, fq.comment);
 				}
 			}
 			count++;

@@ -95,6 +95,18 @@ namespace DatabaseClassifications{
 		}
 	}
 
+	public struct FlaggedQuestion{
+		public int questionID;
+		public string username;
+		public string comment;
+
+		public FlaggedQuestion(int questionID, string username, string comment){
+			this.questionID = questionID;
+			this.username = username;
+			this.comment = comment;
+		}
+	}
+
 	public struct User{
 		public int userID;
 		public int teamID;

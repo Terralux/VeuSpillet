@@ -8,6 +8,7 @@ public class BackToMenu : MonoBehaviour {
 
 	public static bool isCurrentlyInAdminSubMenu = false;
 	public GameObject feedbackPanel;
+	public GameObject invitationFeedbackPanel;
 
 	void Awake(){
 		if (instance != null) {
@@ -42,6 +43,7 @@ public class BackToMenu : MonoBehaviour {
 
 	public void BackToMainMenu(){
 		feedbackPanel.SetActive (false);
+		invitationFeedbackPanel.SetActive (false);
 		QuizCategoryMenu.instance.Hide ();
 		QuizCategoryMenu.instance.Clear ();
 		QuizGameMenu.instance.Hide ();

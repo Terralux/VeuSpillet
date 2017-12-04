@@ -46,17 +46,30 @@ public class QuizCategoryMenu : BaseMenu {
 	public void ChoseACategory(Category category){
 		Debug.Log ("Received Category");
 
-		SetupQuizzes.instance.LoadQuizzes (category.id);
+		if (category.name != null) {
+			SetupQuizzes.instance.LoadQuizzes (category.id);
 
-		currentSession.category = category;
-		QuizMenu.Show (currentSession);
+			currentSession.category = category;
+
+			QuizMenu.Show (currentSession);
+		} else {
+			if (currentSession.isChallengingUser) {
+				QuizUserMenu.Show (currentSession);
+			} else {
+				QuizGameMenu.Show (currentSession);
+			}
+		}
+
 		Clear ();
 		Hide ();
 	}
 
 	private static void InstantiateCategoryButtons(){
+		GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
+		go.GetComponentInChildren<Text> ().text = "Blandet";
+
 		foreach (Category cat in SetupCategories.categories) {
-			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
+			go = Instantiate (contentButton, instance.contentTarget.transform);
 			go.GetComponentInChildren<Text> ().text = cat.name;
 			go.GetComponentInChildren<CategoryContainer> ().myCategory = cat;
 		}

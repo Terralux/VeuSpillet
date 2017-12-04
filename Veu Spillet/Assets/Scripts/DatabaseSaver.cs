@@ -28,7 +28,11 @@ public class DatabaseSaver : MonoBehaviour {
 		Debug.Log(currentSession.challenger.userID + " My chal id again!");
 
 		WWWForm myForm = new WWWForm();
-		myForm.AddField ("quizID", currentSession.quiz.quizID);
+		if (currentSession.quiz.quizName != "") {
+			myForm.AddField ("quizID", currentSession.quiz.quizID);
+		} else {
+			myForm.AddField ("quizID", -1);
+		}
 		myForm.AddField ("challengerID", currentSession.challenger.userID);
 		myForm.AddField ("defenderID", currentSession.defender.userID);
 
@@ -65,7 +69,13 @@ public class DatabaseSaver : MonoBehaviour {
 		// Check for other quizResults
 		// Sort the other quizResults or write new quizResults
 		WWWForm myForm = new WWWForm();
-		myForm.AddField ("quizID", currentSession.quiz.quizID);
+
+		if (currentSession.quiz.quizName != "") {
+			myForm.AddField ("quizID", currentSession.quiz.quizID);
+		} else {
+			myForm.AddField ("quizID", -1);
+		}
+
 		myForm.AddField ("userID", DataContainer.currentLoggedUser.userID);
 
 		WWW www = new WWW ("http://veu-spillet.dk/Prototype/loadQuizResult.php", myForm);
@@ -138,7 +148,11 @@ public class DatabaseSaver : MonoBehaviour {
 			#endregion
 		} else {
 			myForm = new WWWForm ();
-			myForm.AddField ("quizID", currentSession.quiz.quizID);
+			if (currentSession.quiz.quizName != "") {
+				myForm.AddField ("quizID", currentSession.quiz.quizID);
+			} else {
+				myForm.AddField ("quizID", -1);
+			}
 
 			string collectiveAnswers = "";
 			string collectiveQuestionIDs = "";

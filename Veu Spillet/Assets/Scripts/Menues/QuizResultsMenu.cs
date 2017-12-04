@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class QuizResultsMenu : BaseMenu {
+	
+	public static QuizResultsMenu instance;
 
 	public static QuizSession currentSession;
 	public GameObject contentTarget;
@@ -21,8 +23,6 @@ public class QuizResultsMenu : BaseMenu {
 		}
 		Hide ();
 	}
-
-	public static QuizResultsMenu instance;
 
 	public static void Show (QuizSession currentSession)
 	{
