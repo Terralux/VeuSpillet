@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ClickedEventHandler : MonoBehaviour, IPointerDownHandler {
+public class ClickedEventHandler : MonoBehaviour {
 
 	public ParticleSystem clickable_particle;
 	public static GameObject correctAnswer_particle; 
@@ -14,17 +14,19 @@ public class ClickedEventHandler : MonoBehaviour, IPointerDownHandler {
 		wrongAnswer_particle = Resources.Load ("WrongParticleSystem") as GameObject;
 	}
 
+	/*
 	public void OnPointerDown (PointerEventData eventData){
 		if (eventData.pointerCurrentRaycast.gameObject.GetComponent<IsClickable> ()) {
 			Instantiate (clickable_particle, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 		}
 	}
+	*/
 
 	public static void TriggerCorrect(){
-		Instantiate (correctAnswer_particle, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+		Instantiate (correctAnswer_particle, Camera.main.ScreenToWorldPoint(Input.mousePosition) + Camera.main.transform.forward, Quaternion.identity);
 	}
 
 	public static void TriggerWrong(){
-		Instantiate (wrongAnswer_particle, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+		Instantiate (wrongAnswer_particle, Camera.main.ScreenToWorldPoint(Input.mousePosition) + Camera.main.transform.forward, Quaternion.identity);
 	}
 }
