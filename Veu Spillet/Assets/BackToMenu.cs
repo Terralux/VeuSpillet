@@ -39,6 +39,7 @@ public class BackToMenu : MonoBehaviour {
 		DeleteQuestionMenu.Clear ();
 		DeleteQuestionMenu.instance.Hide ();
 		ChangeQuestionMenu.instance.Hide ();
+		MakeUserAdminMenu.instance.Hide ();
 	}
 
 	public void BackToMainMenu(){

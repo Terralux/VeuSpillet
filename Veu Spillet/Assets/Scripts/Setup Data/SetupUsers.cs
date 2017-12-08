@@ -52,4 +52,19 @@ public class SetupUsers : MonoBehaviour {
 		}
 		return new User(0,0,"Missing User","",false);
 	}
+
+	public void UpdateUser(User updatedUser){
+		StartCoroutine (UpdateSpecificUser (updatedUser));
+	}
+
+	IEnumerator UpdateSpecificUser(User updatedUser){
+		string URL = "http://veu-spillet.dk/Prototype/updateUserAdmin.php";
+
+		WWWForm myForm = new WWWForm();
+		myForm.AddField ("userID", updatedUser.userID);
+		myForm.AddField ("isAdmin", updatedUser.isAdmin ? 1 : 0);
+
+		WWW www = new WWW (URL, myForm);
+		yield return www;
+	}
 }

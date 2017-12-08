@@ -69,4 +69,9 @@ public class AdminMenu : BaseMenu {
 		ChangeQuestionMenu.instance.Show();
 		BackToMenu.isCurrentlyInAdminSubMenu = true;
 	}
+
+	public void MakeUserAdmin(){
+		MakeUserAdminMenu.instance.Show ();
+		BackToMenu.isCurrentlyInAdminSubMenu = true;
+	}
 }

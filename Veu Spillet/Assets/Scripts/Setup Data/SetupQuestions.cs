@@ -143,7 +143,7 @@ public class SetupQuestions : MonoBehaviour {
 
 			strings = segmentedQuestionsData [3].Split (' ');
 			for(int j = 0; j < strings.Length - 1; j++){
-				Debug.Log (strings[j]);
+				//Debug.Log (strings[j]);
 				questionIDs.Add (int.Parse (strings[j]));
 			}
 			//questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
@@ -161,7 +161,7 @@ public class SetupQuestions : MonoBehaviour {
 		for (int i = 0; i < questionData.Length-1; i++) {
 			segmentedQuestionsData = questionData [i].Split ('¤');
 
-			if (questionIDs.Contains (int.Parse (segmentedQuestionsData [0]))) {
+			if (questionIDs.Contains (int.Parse (segmentedQuestionsData [1]))) {
 				questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
 			}
 		}
