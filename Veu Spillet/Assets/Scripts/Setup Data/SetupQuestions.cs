@@ -180,6 +180,8 @@ public class SetupQuestions : MonoBehaviour {
 		WWW ItemsData = new WWW (URL);
 		yield return ItemsData;
 
+		Debug.Log (ItemsData.text);
+
 		questions.Clear ();
 
 		string dataString = ItemsData.text;
@@ -191,6 +193,8 @@ public class SetupQuestions : MonoBehaviour {
 
 			questions.Add (new Question (int.Parse (segmentedQuestionsData [0]), int.Parse (segmentedQuestionsData [1]), segmentedQuestionsData [2], segmentedQuestionsData [3], segmentedQuestionsData [4], segmentedQuestionsData [5], segmentedQuestionsData [6]));
 		}
+
+		Debug.Log (questions.Count);
 
 		isReady = true;
 		yield return new WaitForSeconds (0);

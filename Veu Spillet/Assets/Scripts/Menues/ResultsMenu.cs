@@ -45,11 +45,11 @@ public class ResultsMenu : BaseMenu {
 	public void OnClick(int buttonIndex){
 		if (buttonIndex != 0) {
 			SetupQuestions.instance.LoadQuestionWithQuizID (SetupQuizzes.quizzes [buttonIndex - 1].quizID);
-			StartCoroutine (WaitForQuestionLoading (buttonIndex));
+			Debug.Log ("Loading quiz with ID" + SetupQuizzes.quizzes [buttonIndex - 1].quizID);
 		} else {
 			SetupQuestions.instance.LoadAllQuestionsForMixedQuiz ();
-			StartCoroutine (WaitForQuestionLoading (buttonIndex));
 		}
+		StartCoroutine (WaitForQuestionLoading (buttonIndex));
 	}
 
 	private static void InstantiateQuizButtons(){

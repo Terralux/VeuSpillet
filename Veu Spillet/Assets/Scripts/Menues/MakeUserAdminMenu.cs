@@ -45,11 +45,16 @@ public class MakeUserAdminMenu : BaseMenu {
 		SetupUsers.instance.UpdateUser (user);
 
 		UpdateButtonTexts ();
-
-		feedbackPanel.SetActive (true);
+		StartCoroutine (WaitForFeedbackPanel ());
 	}
 
 	public void Return(){
+		feedbackPanel.SetActive (false);
+	}
+
+	IEnumerator WaitForFeedbackPanel(){
+		feedbackPanel.SetActive (true);
+		yield return new WaitForSeconds (3f);
 		feedbackPanel.SetActive (false);
 	}
 
