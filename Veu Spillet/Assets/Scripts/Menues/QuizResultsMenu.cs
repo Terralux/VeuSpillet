@@ -10,24 +10,30 @@ public class QuizResultsMenu : BaseMenu {
 	public GameObject contentTarget;
 	private static GameObject contentButton;
 
+	private static ResultScreen resultScreen;
+
 	public void Awake(){
 		if (instance != null) {
 			Destroy (this);
 		} else {
 			instance = this;
+			resultScreen = GetComponentInChildren<ResultScreen> ();
 		}
 		if (Application.isMobilePlatform) {
 			contentButton = Resources.Load ("Results Post Mobile") as GameObject;
 		} else {
 			contentButton = Resources.Load ("Results Post") as GameObject;
 		}
+		resultScreen.Hide ();
 		Hide ();
+
 	}
 
 	public static void Show (QuizSession currentSession)
 	{
 		QuizResultsMenu.currentSession = currentSession;
 		instance.Show ();
+		resultScreen.SetSession (currentSession);
 
 		for (int i = 0; i < currentSession.questions.Length; i++) {
 			GameObject go = Instantiate (contentButton, instance.contentTarget.transform);
@@ -50,6 +56,7 @@ public class QuizResultsMenu : BaseMenu {
 
 	public override void Hide ()
 	{
+		resultScreen.Hide ();
 		instance.gameObject.SetActive (false);
 	}
 
