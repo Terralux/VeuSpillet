@@ -116,7 +116,7 @@ public class ResultsMenu : BaseMenu {
 	private IEnumerator WaitForQuestionLoading(int buttonIndex){
 		yield return new WaitUntil (() => SetupQuestions.isReady);
 		if (buttonIndex != 0) {
-			InstantiateResultsButtons (SetupQuizzes.quizzes [buttonIndex].quizID);
+			InstantiateResultsButtons (SetupQuizzes.quizzes [buttonIndex - 1].quizID);
 		} else {
 			InstantiateMixedResultsButtons ();
 		}
